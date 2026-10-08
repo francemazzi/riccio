@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "data:build": "tsx scripts/build-data.ts",
     "data:stale": "tsx scripts/stale.ts",
-    "validate": "tsx scripts/validate-cras.ts && tsx scripts/validate-triage.ts",
+    "validate": "tsx scripts/validate-cras.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

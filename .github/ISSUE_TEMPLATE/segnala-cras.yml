@@ -1,0 +1,35 @@
+name: Segnala un CRAS
+description: Aggiungi un centro mancante o correggi i dati di uno esistente
+title: "[CRAS] "
+labels: ["dati"]
+body:
+  - type: input
+    id: cras_id
+    attributes:
+      label: ID del centro (se è una correzione)
+      description: Lo trovi nella pagina "Trova un CRAS" (es. pettirosso-modena).
+  - type: input
+    id: nome
+    attributes: { label: Nome del centro }
+    validations: { required: true }
+  - type: input
+    id: luogo
+    attributes: { label: Comune e provincia }
+    validations: { required: true }
+  - type: input
+    id: telefono
+    attributes:
+      label: Telefono
+      placeholder: "+39..."
+    validations: { required: true }
+  - type: textarea
+    id: cosa
+    attributes:
+      label: Cosa è cambiato o cosa manca
+      description: Orari, indirizzo, se accetta ricci, se il numero non risponde, ecc.
+    validations: { required: true }
+  - type: input
+    id: fonte
+    attributes:
+      label: Fonte
+      description: Link al sito ufficiale o data della telefonata di verifica.
