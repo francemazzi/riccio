@@ -89,13 +89,13 @@ Regola: un record con `verificato_il` più vecchio di 12 mesi viene mostrato con
 
 Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 
-- [ ] `index.html`: cos'è il progetto in due righe
-- [ ] Blocco "Hai trovato un riccio?" con le 3 regole (fuori di giorno = emergenza, scatola e calore, chiama un CRAS)
-- [ ] Blocco "Cosa NON fare" (latte, olio sulle zecche, lasciarlo fuori)
-- [ ] CTA "Trova un CRAS" e "Fai il triage" (disattivati finché le pagine non esistono)
-- [ ] Sezione "Contribuisci": link a CONTRIBUTING e al template issue
-- [ ] CSS mobile first, variabili per colori, `prefers-color-scheme`, font di sistema
-- [ ] Meta tag OG e favicon
+- [x] `index.html`: cos'è il progetto in due righe
+- [x] Blocco "Hai trovato un riccio?" con le 3 regole (fuori di giorno = emergenza, scatola e calore, chiama un CRAS)
+- [x] Blocco "Cosa NON fare" (latte, olio sulle zecche, lasciarlo fuori)
+- [x] CTA "Trova un CRAS" e "Fai il triage" (disattivati finché le pagine non esistono)
+- [x] Sezione "Contribuisci": link a CONTRIBUTING e al template issue
+- [x] CSS mobile first, variabili per colori, `prefers-color-scheme`, font di sistema
+- [x] Meta tag OG e favicon
 - [ ] Pubblicare
 
 **Gate:** pagina online, leggibile su uno schermo da 360px, Lighthouse accessibilità e performance sopra 90.
