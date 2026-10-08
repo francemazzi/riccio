@@ -75,12 +75,12 @@ Regola: un record con `verificato_il` più vecchio di 12 mesi viene mostrato con
 
 ## Fase 0 · Setup repo
 
-- [ ] Scaffold Vite `vanilla-ts` nella root del repo
-- [ ] `tsconfig` strict, `.editorconfig`, `.gitignore`
-- [ ] Struttura cartelle come sopra
-- [ ] `.github/workflows/deploy.yml`: build su push a `main`, deploy su GitHub Pages
-- [ ] `vite.config.ts` con `base: '/riccio/'`
-- [ ] `README.md`: cosa è, come avviare in locale, link alla roadmap
+- [x] Scaffold Vite `vanilla-ts` nella root del repo
+- [x] `tsconfig` strict, `.editorconfig`, `.gitignore`
+- [x] Struttura cartelle come sopra
+- [x] `.github/workflows/deploy.yml`: build su push a `main`, deploy su GitHub Pages
+- [x] `vite.config.ts` con `base: '/riccio/'`
+- [x] `README.md`: cosa è, come avviare in locale, link alla roadmap
 - [ ] Attivare GitHub Pages nelle impostazioni del repo (source: GitHub Actions)
 
 **Gate:** `npm run build` passa, la Action deploya una pagina vuota raggiungibile.
