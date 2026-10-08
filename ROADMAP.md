@@ -102,15 +102,15 @@ Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 
 ## Fase 2 · Dataset CRAS
 
-- [ ] `data/cras.csv` con header e 3 righe di esempio reali
-- [ ] `scripts/validate-cras.ts`: header esatto, `id` unici, lat/lon in Italia, telefono valido, data valida, enum rispettati
-- [ ] `scripts/build-data.ts`: CSV → `src/generated/cras.json` in fase di build
-- [ ] `.github/workflows/ci.yml`: esegue validazione su ogni PR che tocca `data/`
-- [ ] `CONTRIBUTING.md`: come aggiungere o correggere un centro modificando il CSV da GitHub
-- [ ] `.github/ISSUE_TEMPLATE/segnala-cras.yml`: form per chi non vuole toccare il CSV
+- [x] `data/cras.csv` con header e 3 righe di esempio reali
+- [x] `scripts/validate-cras.ts`: header esatto, `id` unici, lat/lon in Italia, telefono valido, data valida, enum rispettati
+- [x] `scripts/build-data.ts`: CSV → `src/generated/cras.json` in fase di build
+- [x] `.github/workflows/ci.yml`: esegue validazione su ogni PR che tocca `data/`
+- [x] `CONTRIBUTING.md`: come aggiungere o correggere un centro modificando il CSV da GitHub
+- [x] `.github/ISSUE_TEMPLATE/segnala-cras.yml`: form per chi non vuole toccare il CSV
 - [ ] Raccolta dati: Emilia-Romagna, Lombardia, Piemonte, Veneto
 - [ ] Verifica telefonica di ogni record, `verificato_il` compilato
-- [ ] `npm run data:stale`: elenca i record scaduti
+- [x] `npm run data:stale`: elenca i record scaduti
 
 **Gate:** 50 record verificati, CI che blocca una PR con CSV rotto.
 

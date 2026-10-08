@@ -6,6 +6,7 @@
   "description": "Lista CRAS e triage per chi trova un riccio in difficoltà",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run data:build",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "data:build": "tsx scripts/build-data.ts",
