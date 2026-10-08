@@ -3,7 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 CRAS_CSV=tests/fixtures/cras-esempio.csv npm run build >/dev/null
-npx vite preview --port 4173 >/dev/null 2>&1 &
+node node_modules/vite/bin/vite.js preview --port 4173 --strictPort >/dev/null 2>&1 &
 PID=$!
 trap 'kill $PID 2>/dev/null || true' EXIT
 for i in $(seq 1 30); do curl -sf localhost:4173/riccio/ >/dev/null && break; sleep 0.3; done
