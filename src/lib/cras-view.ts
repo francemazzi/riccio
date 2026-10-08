@@ -22,7 +22,24 @@ function badgeVerifica(c: Cras): string {
   }
   return `<span class="badge warn" title="Chiama prima di partire: i dati non sono stati verificati di recente">${icons.warn()} Da verificare</span>`;
 }
-export const badges = (c: Cras) => `<div class="badges">${badgeRicci(c)}${badgeStalli(c)}${badgeVerifica(c)}</div>`;
+function badgeH24(c: Cras): string {
+  return c.h24 === 'si' ? `<span class="badge ok">${icons.moon()} Emergenze H24</span>` : '';
+}
+function badgeStato(c: Cras): string {
+  return c.stato_centro === 'sospeso' ? `<span class="badge bad">${icons.warn()} Servizio sospeso</span>` : '';
+}
+function badgeFonte(c: Cras): string {
+  return c.fonte_tipo === 'primaria'
+    ? `<span class="badge neutral" title="Numero letto sul sito del centro o su un documento ufficiale">Fonte ufficiale</span>`
+    : `<span class="badge neutral" title="Dato da elenco di terzi: non confermato su fonte ufficiale">Fonte secondaria</span>`;
+}
+export const badges = (c: Cras) =>
+  `<div class="badges">${badgeStato(c)}${badgeRicci(c)}${badgeH24(c)}${badgeStalli(c)}${badgeVerifica(c)}${badgeFonte(c)}</div>`;
+const dettagli = (c: Cras) =>
+  `${c.animali_accettati ? `<p class="meta"><strong>Animali accettati:</strong> ${esc(c.animali_accettati)}</p>` : ''}` +
+  `${c.territorio ? `<p class="meta"><strong>Zona servita:</strong> ${esc(c.territorio)}</p>` : ''}` +
+  `${c.modalita ? `<p class="meta"><strong>Come portarlo:</strong> ${esc(c.modalita)}</p>` : ''}` +
+  `${c.ente ? `<p class="meta">Gestito da ${esc(c.ente)}</p>` : ''}`;
 const telefoni = (c: Cras) =>
   `<div class="tel">${c.telefoni.map((t) => `<a class="btn" href="tel:${esc(t)}">${icons.phone()} ${esc(fmtTel(t))}</a>`).join('')}</div>`;
 const distanza = (c: Cras, pos?: Point) => (pos ? `<span class="dist">${formatKm(haversine(pos, c))}</span>` : '');
@@ -42,13 +59,13 @@ export function card(c: Cras, pos?: Point): string {
     ${telefoni(c)}
     ${c.orari ? `<p class="meta">Orari: ${esc(c.orari)}</p>` : ''}
     ${c.indirizzo ? `<p class="meta">${esc(c.indirizzo)}</p>` : ''}
-    ${badges(c)}${c.note ? `<p class="meta">${esc(c.note)}</p>` : ''}${azioni(c)}</li>`;
+    ${badges(c)}${dettagli(c)}${c.note ? `<p class="meta">${esc(c.note)}</p>` : ''}${azioni(c)}</li>`;
 }
 
 export function row(c: Cras, pos?: Point): string {
   return `<tr><th scope="row">${esc(c.nome)}${c.indirizzo ? `<div class="meta">${esc(c.indirizzo)}</div>` : ''}</th>
     <td>${esc(c.comune)} ${distanza(c, pos)}</td><td>${esc(c.provincia)}</td><td>${esc(c.regione)}</td>
     <td>${telefoni(c)}${c.orari ? `<div class="meta">${esc(c.orari)}</div>` : ''}</td>
-    <td>${badges(c)}</td><td>${azioni(c)}</td></tr>`;
+    <td>${badges(c)}${dettagli(c)}</td><td>${azioni(c)}</td></tr>`;
 }
 

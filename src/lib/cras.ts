@@ -3,14 +3,20 @@ import { parseCsv } from './csv';
 export const HEADER = [
   'id', 'nome', 'regione', 'provincia', 'comune', 'indirizzo', 'lat', 'lon', 'telefono', 'orari',
   'sito', 'accetta_ricci', 'accetta_stalli', 'note', 'fonte', 'verificato_il',
+  'ente', 'animali_accettati', 'territorio', 'h24', 'modalita', 'stato_centro', 'fonte_tipo', 'letto_il', 'precisione_coord',
 ] as const;
 
 export type Tri = 'si' | 'no' | '?';
+export type StatoCentro = 'attivo' | 'sospeso' | 'chiuso' | '?';
+export type FonteTipo = 'primaria' | 'secondaria';
+export type PrecisioneCoord = 'indirizzo' | 'comune';
 
 export interface Cras {
   id: string; nome: string; regione: string; provincia: string; comune: string; indirizzo: string;
   lat: number; lon: number; telefoni: string[]; orari: string; sito: string;
   accetta_ricci: Tri; accetta_stalli: Tri; note: string; fonte: string; verificato_il: string;
+  ente: string; animali_accettati: string; territorio: string; h24: Tri; modalita: string;
+  stato_centro: StatoCentro; fonte_tipo: FonteTipo; letto_il: string; precisione_coord: PrecisioneCoord;
 }
 
 const ITALY = { latMin: 35.4, latMax: 47.2, lonMin: 6.5, lonMax: 18.6 };
@@ -19,6 +25,9 @@ const PHONE = /^\+39\d{6,11}$/;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const URL_RE = /^https?:\/\/\S+$/;
 const TRI = new Set(['si', 'no', '?']);
+const STATI = new Set(['attivo', 'sospeso', 'chiuso', '?']);
+const FONTI = new Set(['primaria', 'secondaria']);
+const PRECISIONI = new Set(['indirizzo', 'comune']);
 
 function validDate(s: string): boolean {
   if (!DATE.test(s)) return false;
@@ -56,13 +65,20 @@ export function parseCras(text: string): { errors: string[]; records: Cras[] } {
     for (const t of tels) if (!PHONE.test(t)) err(`telefono non valido "${t}" (formato +39...)`);
     if (g.sito && !URL_RE.test(g.sito)) err(`sito non è un URL ("${g.sito}")`);
     if (g.fonte && !URL_RE.test(g.fonte)) err(`fonte non è un URL ("${g.fonte}")`);
-    for (const k of ['accetta_ricci', 'accetta_stalli'] as const) if (!TRI.has(g[k])) err(`${k} deve essere si/no/? ("${g[k]}")`);
+    for (const k of ['accetta_ricci', 'accetta_stalli', 'h24'] as const) if (!TRI.has(g[k])) err(`${k} deve essere si/no/? ("${g[k]}")`);
     if (g.verificato_il && !validDate(g.verificato_il)) err(`verificato_il non è una data YYYY-MM-DD ("${g.verificato_il}")`);
+    if (!g.letto_il || !validDate(g.letto_il)) err(`letto_il obbligatorio, formato YYYY-MM-DD ("${g.letto_il}")`);
+    if (!STATI.has(g.stato_centro)) err(`stato_centro deve essere attivo/sospeso/chiuso/? ("${g.stato_centro}")`);
+    if (!FONTI.has(g.fonte_tipo)) err(`fonte_tipo deve essere primaria/secondaria ("${g.fonte_tipo}")`);
+    if (!PRECISIONI.has(g.precisione_coord)) err(`precisione_coord deve essere indirizzo/comune ("${g.precisione_coord}")`);
     if (errors.length === before) {
       records.push({
         id: g.id, nome: g.nome, regione: g.regione, provincia: g.provincia, comune: g.comune, indirizzo: g.indirizzo,
         lat, lon, telefoni: tels, orari: g.orari, sito: g.sito, accetta_ricci: g.accetta_ricci as Tri,
         accetta_stalli: g.accetta_stalli as Tri, note: g.note, fonte: g.fonte, verificato_il: g.verificato_il,
+        ente: g.ente, animali_accettati: g.animali_accettati, territorio: g.territorio, h24: g.h24 as Tri, modalita: g.modalita,
+        stato_centro: g.stato_centro as StatoCentro, fonte_tipo: g.fonte_tipo as FonteTipo, letto_il: g.letto_il,
+        precisione_coord: g.precisione_coord as PrecisioneCoord,
       });
     }
   });

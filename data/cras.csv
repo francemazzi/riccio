@@ -1,1 +1,1 @@
-id,nome,regione,provincia,comune,indirizzo,lat,lon,telefono,orari,sito,accetta_ricci,accetta_stalli,note,fonte,verificato_il
+id,nome,regione,provincia,comune,indirizzo,lat,lon,telefono,orari,sito,accetta_ricci,accetta_stalli,note,fonte,verificato_il,ente,animali_accettati,territorio,h24,modalita,stato_centro,fonte_tipo,letto_il,precisione_coord

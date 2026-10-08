@@ -27,6 +27,15 @@ describe('filtra', () => {
     const r = filtra(records, { ...FILTRI_VUOTI, soloRicci: true });
     expect(r.some((c) => c.accetta_ricci === 'no')).toBe(false);
   });
+  it('filtra H24 e fonti ufficiali', () => {
+    expect(filtra(records, { ...FILTRI_VUOTI, soloH24: true }).map((c) => c.id)).toEqual(['esempio-bologna']);
+    expect(filtra(records, { ...FILTRI_VUOTI, soloFontePrimaria: true }).map((c) => c.id)).toEqual(['esempio-modena']);
+  });
+  it('la ricerca copre territorio, animali accettati ed ente', () => {
+    expect(filtra(records, { ...FILTRI_VUOTI, q: 'ricci mammiferi' }).map((c) => c.id)).toEqual(['esempio-modena']);
+    expect(filtra(records, { ...FILTRI_VUOTI, q: 'provincia di modena' }).map((c) => c.id)).toEqual(['esempio-modena']);
+    expect(filtra(records, { ...FILTRI_VUOTI, q: 'ente esempio' }).map((c) => c.id)).toEqual(['esempio-bologna']);
+  });
   it('solo verificati considera la scadenza a 12 mesi', () => {
     const ids = filtra(records, { ...FILTRI_VUOTI, soloVerificati: true }, oggi).map((c) => c.id).sort();
     expect(ids).toEqual(['esempio-bergamo', 'esempio-cuneo', 'esempio-modena', 'esempio-palermo']);
