@@ -1,17 +1,17 @@
 import '../styles/base.css';
 import '../styles/cras.css';
 import { mountLayout } from '../lib/layout';
-import { icons, mascot } from '../lib/icons';
+import { mascot } from '../lib/icons';
 import data from '../generated/cras.json';
-import { statoVerifica, type Cras } from '../lib/cras';
+import type { Cras } from '../lib/cras';
 import { FILTRI_VUOTI, filtra, ordina, valoriUnici, type Campo, type Filtri, type SortKey } from '../lib/filter';
-import { formatKm, haversine, locate, mapsUrl, type Point } from '../lib/geo';
+import { locate, type Point } from '../lib/geo';
+import { card, esc, row } from '../lib/cras-view';
 
 mountLayout('cras');
 
 const tutti = data as Cras[];
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 const CAMPI: Campo[] = ['tutti', 'nome', 'comune', 'provincia', 'regione'];
 const SORTS: SortKey[] = ['nome', 'comune', 'provincia', 'regione', 'distanza'];
@@ -51,54 +51,6 @@ function writeUrl(): void {
   history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : ''));
 }
 
-const fmtTel = (t: string) => t.replace(/^\+39(\d{2,4})(\d+)$/, '+39 $1 $2');
-
-function badgeRicci(c: Cras): string {
-  if (c.accetta_ricci === 'si') return `<span class="badge ok">${icons.check()} Accetta ricci</span>`;
-  if (c.accetta_ricci === 'no') return `<span class="badge bad">Non accetta ricci</span>`;
-  return `<span class="badge neutral">Ricci: da chiedere</span>`;
-}
-function badgeStalli(c: Cras): string {
-  if (c.accetta_stalli === 'si') return `<span class="badge ok">Affida a stalli</span>`;
-  if (c.accetta_stalli === 'no') return `<span class="badge neutral">Niente stalli</span>`;
-  return '';
-}
-function badgeVerifica(c: Cras): string {
-  if (statoVerifica(c.verificato_il) === 'verificato') {
-    return `<span class="badge ok">${icons.check()} Verificato il ${esc(new Date(c.verificato_il).toLocaleDateString('it-IT'))}</span>`;
-  }
-  return `<span class="badge warn" title="Chiama prima di partire: i dati non sono stati verificati di recente">${icons.warn()} Da verificare</span>`;
-}
-const badges = (c: Cras) => `<div class="badges">${badgeRicci(c)}${badgeStalli(c)}${badgeVerifica(c)}</div>`;
-const telefoni = (c: Cras) =>
-  `<div class="tel">${c.telefoni.map((t) => `<a class="btn" href="tel:${esc(t)}">${icons.phone()} ${esc(fmtTel(t))}</a>`).join('')}</div>`;
-const distanza = (c: Cras) => (pos ? `<span class="dist">${formatKm(haversine(pos, c))}</span>` : '');
-const segnala = (c: Cras) => {
-  const u = new URLSearchParams({ template: 'segnala-cras.yml', title: `[CRAS] Correzione: ${c.nome}`, cras_id: c.id });
-  return `https://github.com/francemazzi/riccio/issues/new?${u}`;
-};
-const azioni = (c: Cras) =>
-  `<div class="actions"><a href="${mapsUrl(c)}" target="_blank" rel="noopener">${icons.pin()} Apri in mappe</a>` +
-  (c.sito ? `<a href="${esc(c.sito)}" target="_blank" rel="noopener">Sito</a>` : '') +
-  `<a href="${esc(c.fonte)}" target="_blank" rel="noopener">Fonte</a>` +
-  `<a href="${segnala(c)}" target="_blank" rel="noopener">${icons.flag()} Segnala errore</a></div>`;
-
-function card(c: Cras): string {
-  return `<li class="card cras-card"><h3>${esc(c.nome)}</h3>
-    <p class="where">${icons.pin()} ${esc(c.comune)} (${esc(c.provincia)}) · ${esc(c.regione)} ${distanza(c)}</p>
-    ${telefoni(c)}
-    ${c.orari ? `<p class="meta">Orari: ${esc(c.orari)}</p>` : ''}
-    ${c.indirizzo ? `<p class="meta">${esc(c.indirizzo)}</p>` : ''}
-    ${badges(c)}${c.note ? `<p class="meta">${esc(c.note)}</p>` : ''}${azioni(c)}</li>`;
-}
-
-function row(c: Cras): string {
-  return `<tr><th scope="row">${esc(c.nome)}${c.indirizzo ? `<div class="meta">${esc(c.indirizzo)}</div>` : ''}</th>
-    <td>${esc(c.comune)} ${distanza(c)}</td><td>${esc(c.provincia)}</td><td>${esc(c.regione)}</td>
-    <td>${telefoni(c)}${c.orari ? `<div class="meta">${esc(c.orari)}</div>` : ''}</td>
-    <td>${badges(c)}</td><td>${azioni(c)}</td></tr>`;
-}
-
 const COLS: { key: SortKey; label: string }[] = [
   { key: 'nome', label: 'Centro' }, { key: 'comune', label: 'Comune' },
   { key: 'provincia', label: 'Prov.' }, { key: 'regione', label: 'Regione' },
@@ -135,10 +87,10 @@ function render(): void {
   $('count').textContent = `${lista.length} ${lista.length === 1 ? 'centro' : 'centri'} su ${tutti.length}`;
   const vuoto = lista.length === 0;
   $('empty').innerHTML = vuoto ? empty() : '';
-  $('list-cards').innerHTML = lista.map(card).join('');
+  $('list-cards').innerHTML = lista.map((c) => card(c, pos)).join('');
   $('table-wrap').hidden = vuoto;
   $('thead').innerHTML = head();
-  $('tbody').innerHTML = lista.map(row).join('');
+  $('tbody').innerHTML = lista.map((c) => row(c, pos)).join('');
   writeUrl();
 }
 

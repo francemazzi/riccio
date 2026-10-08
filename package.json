@@ -11,9 +11,10 @@
     "preview": "vite preview",
     "data:build": "tsx scripts/build-data.ts",
     "data:stale": "tsx scripts/stale.ts",
-    "validate": "tsx scripts/validate-cras.ts",
+    "validate": "tsx scripts/validate-cras.ts && tsx scripts/validate-triage.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "e2e": "bash tests/e2e/run.sh"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

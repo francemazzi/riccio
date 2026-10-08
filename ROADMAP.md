@@ -130,13 +130,13 @@ Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 
 ## Fase 4 · Triage
 
-- [ ] `data/triage.json`: nodi con `id`, `domanda`, `opzioni[{testo, next}]`, esiti con `livello` (`lascialo` / `scalda-e-chiama` / `urgenza`) e `istruzioni`
+- [x] `data/triage.json`: nodi con `id`, `domanda`, `opzioni[{testo, next}]`, esiti con `livello` (`lascialo` / `scalda-e-chiama` / `urgenza`) e `istruzioni`
 - [ ] Contenuto scritto con un veterinario o un centro partner. **Senza questa firma la pagina non si pubblica.**
-- [ ] `src/lib/triage.ts`: motore step by step, tasto indietro, barra avanzamento, nessuno stato in URL durante il percorso
-- [ ] `src/pages/riccio.html`: 5 domande massimo (giorno o notte, si chiude, peso, mosche o zecche, stagione)
-- [ ] Schermata esito: livello, istruzioni scatola, CRAS più vicino dalla fase 3
-- [ ] Esito condivisibile: URL con `?esito=urgenza`, meta OG dedicati
-- [ ] Validazione dello schema `triage.json` in CI (nessun nodo orfano, ogni percorso termina in un esito)
+- [x] `src/lib/triage.ts`: motore step by step, tasto indietro, barra avanzamento, nessuno stato in URL durante il percorso
+- [x] `src/pages/riccio.html`: 5 domande massimo (giorno o notte, si chiude, peso, mosche o zecche, stagione)
+- [x] Schermata esito: livello, istruzioni scatola, CRAS più vicino dalla fase 3
+- [x] Esito condivisibile: URL con `?esito=urgenza`, meta OG dedicati
+- [x] Validazione dello schema `triage.json` in CI (nessun nodo orfano, ogni percorso termina in un esito)
 - [x] Attivare la CTA sulla landing
 
 **Gate:** il partner conferma che chi arriva dal triage è preparato meglio.
