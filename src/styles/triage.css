@@ -45,3 +45,5 @@ table.segni .cat { display: block; font-weight: 400; font-size: .8rem; color: va
   table.segni td, table.segni th { border: 0; padding: .25rem .6rem; }
   table.segni td[data-label]::before { content: attr(data-label) ": "; font-weight: 700; color: var(--muted); font-size: .85rem; }
 }
+#wizard { min-height: 26rem; }
+.guide table.segni { min-height: 20rem; }

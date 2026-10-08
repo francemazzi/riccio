@@ -46,3 +46,4 @@ table.cras td .badges { margin: 0; }
 @media (min-width: 64rem) { .filters { grid-template-columns: 2fr 1fr 1.2fr 1.2fr; } }
 .table-wrap[hidden] { display: none !important; }
 .emergency > span:first-child { flex: none; display: inline-flex; }
+#count { min-height: 1.6em; }

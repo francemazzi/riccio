@@ -1,10 +1,12 @@
 :root {
   --aculei: #4a3728;
+  --header-bg: #4a3728;
+  --header-fg: #f3e9d8;
   --aculei-2: #6b4f3a;
   --pelo: #f3e9d8;
   --pelo-2: #e8d9bf;
   --muso: #c9a27a;
-  --foglia: #4f7a3a;
+  --foglia: #3f6a2c;
   --foglia-bg: #e3eed9;
   --ambra: #8a5a00;
   --ambra-bg: #fbeacb;
@@ -36,7 +38,7 @@
     --terracotta: #f1a08f;
     --terracotta-bg: #44201a;
     --link: #f0b98a;
-    --aculei: #c9a27a;
+    --header-bg: #33261b;
     --shadow: none;
   }
 }

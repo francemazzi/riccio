@@ -19,3 +19,4 @@
   .grid.three { grid-template-columns: repeat(3, 1fr); }
   .grid.two { grid-template-columns: repeat(2, 1fr); }
 }
+.hero .art { aspect-ratio: 240 / 180; }

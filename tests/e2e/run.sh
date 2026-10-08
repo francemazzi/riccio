@@ -11,3 +11,5 @@ mkdir -p shots
 node tests/e2e/shots.mjs index.html
 node tests/e2e/cras.mjs
 node tests/e2e/triage.mjs
+node tests/e2e/offline.mjs
+node tests/e2e/a11y.mjs

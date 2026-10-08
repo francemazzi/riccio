@@ -6,6 +6,8 @@
   <title>Trova un CRAS · Riccio</title>
   <meta name="description" content="Elenco dei centri di recupero fauna selvatica (CRAS): cerca per città, provincia o regione e chiama con un tap.">
   <meta name="theme-color" content="#4a3728">
+  <link rel="manifest" href="/riccio/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/riccio/icon-192.png">
   <link rel="icon" type="image/svg+xml" href="/riccio/favicon.svg">
   <meta property="og:title" content="Trova un CRAS vicino a te">
   <meta property="og:description" content="Centri di recupero per ricci e fauna selvatica, con numero da chiamare.">
@@ -42,10 +44,11 @@
     </form>
 
     <div class="toolbar"><p class="count" id="count" aria-live="polite"></p><p class="status" id="status" role="status"></p></div>
+    <h2 class="sr-only">Elenco dei centri</h2>
     <div id="empty"></div>
     <ul class="cards mobile-only" id="list-cards"></ul>
     <div class="table-wrap" id="table-wrap">
-      <table class="cras"><caption class="sr-only" style="position:absolute;left:-999px">Elenco dei centri, ordinabile per colonna</caption>
+      <table class="cras"><caption class="sr-only">Elenco dei centri, ordinabile per colonna</caption>
         <thead id="thead"></thead><tbody id="tbody"></tbody></table>
     </div>
   </main>

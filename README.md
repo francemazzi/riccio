@@ -1,18 +1,45 @@
 # Riccio 🦔
 
 App statica per cittadini che trovano un riccio in difficoltà: **lista CRAS + triage in 60 secondi**.
-Nessun backend: i dati vivono in `data/cras.csv` e `data/triage.json`.
+Nessun backend, nessun cookie, nessuna analytics: i dati vivono in `data/cras.csv` e `data/triage.json`.
+
+- **Trova un CRAS**: tabella (desktop) e card (mobile) filtrabili per città, nome, provincia, regione; "vicino a me" con geolocalizzazione (la posizione resta nel browser).
+- **Triage**: al massimo 5 domande, esito `urgenza` / `scalda-e-chiama` / `lascialo`, link condivisibile (`?esito=urgenza`), centro più vicino.
+- **Come sta il riccio?**: guida ai segni (zecche, mosche, respiro, peso…) filtrabile per sintomo e livello.
+- Funziona offline dopo la prima visita (PWA), tema chiaro/scuro, accessibile (axe-core a zero violazioni).
 
 Roadmap: [ROADMAP.md](ROADMAP.md) · Contribuire: [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Stato dei dati (importante)
+- `data/cras.csv` è **vuoto di record reali**: l'ambiente in cui è stato sviluppato non poteva aprire siti web, e per un'app di emergenza i numeri di telefono non si inventano né si copiano da riassunti.
+  L'app mostra uno stato vuoto con il numero verde 1515 finché non ci sono centri.
+- `data/candidati/da-verificare.csv`: 20 piste (da riassunti di ricerca, **non verificate**) da controllare e promuovere in `cras.csv` dopo verifica telefonica. Vedi il README nella cartella.
+- `data/triage.json` è una **bozza da linee guida pubbliche, in attesa di revisione veterinaria** (`"revisionato": false`): la pagina mostra l'avviso finché non viene firmato. Dopo la revisione, impostare `revisionato: true`.
+- `tests/fixtures/cras-esempio.csv`: dati fittizi (`[ESEMPIO]`, telefoni `+3900000…`) usati solo da test ed E2E.
 
 ## Avvio in locale
 ```bash
 npm ci
 npm run dev        # http://localhost:5173/riccio/
-npm run validate   # valida CSV e triage
-npm test           # unit test
-npm run build      # build in dist/
+npm run validate   # valida CSV e albero del triage
+npm test           # unit test (Vitest)
+npm run e2e        # build con dati di esempio + Playwright (mobile/desktop, offline, axe)
+npm run data:stale # record da verificare (mai o oltre 12 mesi)
+npm run build      # build in dist/ (genera anche src/generated/cras.json e sw.js)
 ```
+Gli E2E usano Chromium già installato (`/opt/pw-browsers/chromium`).
+
+## Struttura
+`index.html`, `cras.html`, `riccio.html` (pagine, alla radice per avere URL puliti su Pages) · `src/pages/*.ts` · `src/lib/` (csv, cras, filter, geo, triage, icone) · `scripts/` (validazioni e build dati) · `.github/workflows/` (`ci`, `deploy`, `stale`).
 
 ## Deploy
-Push su `main` → GitHub Actions → GitHub Pages (Settings → Pages → Source: GitHub Actions).
+Push su `main` → GitHub Actions → GitHub Pages. **Azione manuale richiesta**: Settings → Pages → Source: *GitHub Actions*.
+
+## Privacy
+Nessuna analytics, nessun cookie, nessun tracciamento. La geolocalizzazione è usata solo nel browser per ordinare i centri.
+
+## Governance (da completare)
+Aperto: intestare dominio e dati a un'associazione e avere almeno un secondo manutentore. Finché non c'è, il progetto è mantenuto a titolo personale e **non è un servizio di emergenza**.
+
+## Licenza
+MIT.
