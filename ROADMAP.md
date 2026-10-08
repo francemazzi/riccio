@@ -116,14 +116,14 @@ Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 
 ## Fase 3 · Lista CRAS per i cittadini
 
-- [ ] `src/pages/cras.html`: lista card, una per centro
-- [ ] Card: nome, comune e provincia, `tel:` grande, orari, badge accetta ricci / stalli, data verifica, link "apri in mappe" (URL OSM o Google Maps, nessuna libreria)
-- [ ] Filtro per regione e provincia, ricerca testo
-- [ ] Geolocalizzazione con `navigator.geolocation`: ordina per distanza (Haversine), fallback alla scelta manuale della provincia
-- [ ] Badge "da verificare" sui record vecchi
-- [ ] Bottone "segnala errore" che apre una issue precompilata con l'`id`
-- [ ] Stato vuoto: "nessun centro in zona, chiama il 1515"
-- [ ] Attivare la CTA sulla landing
+- [x] `src/pages/cras.html`: lista card, una per centro
+- [x] Card: nome, comune e provincia, `tel:` grande, orari, badge accetta ricci / stalli, data verifica, link "apri in mappe" (URL OSM o Google Maps, nessuna libreria)
+- [x] Filtro per regione e provincia, ricerca testo
+- [x] Geolocalizzazione con `navigator.geolocation`: ordina per distanza (Haversine), fallback alla scelta manuale della provincia
+- [x] Badge "da verificare" sui record vecchi
+- [x] Bottone "segnala errore" che apre una issue precompilata con l'`id`
+- [x] Stato vuoto: "nessun centro in zona, chiama il 1515"
+- [x] Attivare la CTA sulla landing
 - [ ] (opzionale) mappa Leaflet con marker, caricata solo su richiesta
 
 **Gate:** da una posizione nel Nord Italia il primo risultato è corretto e chiamabile in due tap.
@@ -137,7 +137,7 @@ Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 - [ ] Schermata esito: livello, istruzioni scatola, CRAS più vicino dalla fase 3
 - [ ] Esito condivisibile: URL con `?esito=urgenza`, meta OG dedicati
 - [ ] Validazione dello schema `triage.json` in CI (nessun nodo orfano, ogni percorso termina in un esito)
-- [ ] Attivare la CTA sulla landing
+- [x] Attivare la CTA sulla landing
 
 **Gate:** il partner conferma che chi arriva dal triage è preparato meglio.
 
