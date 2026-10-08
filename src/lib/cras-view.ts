@@ -35,9 +35,13 @@ function badgeFonte(c: Cras): string {
 }
 export const badges = (c: Cras) =>
   `<div class="badges">${badgeStato(c)}${badgeRicci(c)}${badgeH24(c)}${badgeStalli(c)}${badgeVerifica(c)}${badgeFonte(c)}</div>`;
+const territorio = (c: Cras): string =>
+  !c.territorio ? '' : c.territorio.length <= 140
+    ? `<p class="meta"><strong>Zona servita:</strong> ${esc(c.territorio)}</p>`
+    : `<details class="meta"><summary><strong>Zona servita</strong> (elenco)</summary>${esc(c.territorio)}</details>`;
 const dettagli = (c: Cras) =>
   `${c.animali_accettati ? `<p class="meta"><strong>Animali accettati:</strong> ${esc(c.animali_accettati)}</p>` : ''}` +
-  `${c.territorio ? `<p class="meta"><strong>Zona servita:</strong> ${esc(c.territorio)}</p>` : ''}` +
+  `${territorio(c)}` +
   `${c.modalita ? `<p class="meta"><strong>Come portarlo:</strong> ${esc(c.modalita)}</p>` : ''}` +
   `${c.ente ? `<p class="meta">Gestito da ${esc(c.ente)}</p>` : ''}`;
 const telefoni = (c: Cras) =>

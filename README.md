@@ -10,10 +10,9 @@ Nessun backend, nessun cookie, nessuna analytics: i dati vivono in `data/cras.cs
 
 Roadmap: [ROADMAP.md](ROADMAP.md) · Contribuire: [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Stato dei dati (importante)
-- `data/cras.csv` è **vuoto di record reali**: l'ambiente in cui è stato sviluppato non poteva aprire siti web, e per un'app di emergenza i numeri di telefono non si inventano né si copiano da riassunti.
-  L'app mostra uno stato vuoto con il numero verde 1515 finché non ci sono centri.
-- `data/candidati/da-verificare.csv`: 20 piste (da riassunti di ricerca, **non verificate**) da controllare e promuovere in `cras.csv` dopo verifica telefonica. Vedi il README nella cartella.
+## Stato dei dati
+- `data/cras.csv`: **84 centri** in 18 regioni, letti da documenti ufficiali (Regioni, PDF, siti dei centri) e da elenchi di terzi (LIPU, elencocras.it). Ogni record ha la `fonte`, la data di lettura e il tipo di fonte (primaria/secondaria); il telefono è incluso solo se riletto nella fonte indicata. **Nessuna verifica telefonica**: tutti i centri sono mostrati come "Da verificare". Dettagli e limiti in [`data/FONTI.md`](data/FONTI.md).
+- `data/candidati/esclusi.csv`: centri trovati ma non inclusi, con il motivo.
 - `data/triage.json` è una **bozza da linee guida pubbliche, in attesa di revisione veterinaria** (`"revisionato": false`): la pagina mostra l'avviso finché non viene firmato. Dopo la revisione, impostare `revisionato: true`.
 - `tests/fixtures/cras-esempio.csv`: dati fittizi (`[ESEMPIO]`, telefoni `+3900000…`) usati solo da test ed E2E.
 
