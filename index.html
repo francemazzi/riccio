@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Riccio · Hai trovato un riccio in difficoltà?</title>
+  <meta name="description" content="Hai trovato un riccio? Trova il centro di recupero (CRAS) più vicino e fai il triage in 60 secondi.">
+  <meta name="theme-color" content="#4a3728">
+  <link rel="manifest" href="/riccio/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/riccio/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/riccio/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hai trovato un riccio?">
+  <meta property="og:description" content="Lista dei CRAS e triage in 60 secondi per chi trova un riccio in difficoltà.">
+  <meta property="og:image" content="https://francemazzi.github.io/riccio/og.svg">
+  <meta property="og:locale" content="it_IT">
+</head>
+<body>
+  <a class="skip" href="#contenuto">Vai al contenuto</a>
+  <header id="site-header"></header>
+  <main id="contenuto">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Hai trovato un riccio in difficoltà?</h1>
+          <p>Riccio ti aiuta a capire in 60 secondi se serve intervenire e a trovare il centro di recupero (CRAS) più vicino, con il numero da chiamare a portata di tap.</p>
+          <div class="cta">
+            <a class="btn" id="cta-cras" href="/riccio/cras.html">Trova un CRAS</a>
+            <a class="btn secondary" id="cta-triage" href="/riccio/riccio.html">Fai il triage</a>
+          </div>
+        </div>
+        <div class="art" data-mascot></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="regole">
+      <div class="wrap">
+        <h2 id="regole">Hai trovato un riccio? Le 3 regole</h2>
+        <div class="grid three">
+          <article class="card rule">
+            <h3><span class="num" aria-hidden="true">1</span> Fuori di giorno = emergenza</h3>
+            <span data-icon="sun" data-label="" class="art"></span>
+            <p>Il riccio è un animale notturno. Se lo vedi in giro con la luce, barcolla, è fermo o ferito, ha quasi sempre bisogno di aiuto.</p>
+          </article>
+          <article class="card rule">
+            <h3><span class="num" aria-hidden="true">2</span> Scatola e calore</h3>
+            <span data-icon="box" class="art"></span>
+            <p>Mettilo in una scatola di cartone alta con un panno, in un posto tranquillo e buio. Se è freddo, una bottiglia d'acqua tiepida avvolta in un panno accanto a lui.</p>
+          </article>
+          <article class="card rule">
+            <h3><span class="num" aria-hidden="true">3</span> Chiama un CRAS</h3>
+            <span data-icon="phone" class="art"></span>
+            <p>Un centro di recupero ti dirà cosa fare e se portarlo. Se non rispondono, prova il numero verde <a href="tel:1515">1515</a>.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="nonfare">
+      <div class="wrap">
+        <h2 id="nonfare">Cosa NON fare</h2>
+        <div class="grid two">
+          <div class="card dont"><h3><span data-icon="milk"></span> Non dargli latte</h3><p>I ricci sono intolleranti al lattosio: il latte provoca diarrea e può essere fatale. Meglio acqua fresca in un piattino basso.</p></div>
+          <div class="card dont"><h3><span data-icon="tick"></span> Non usare olio sulle zecche</h3><p>Olio e altri prodotti sono dannosi. Le zecche si tolgono con l'apposita pinzetta, o lo fa il centro.</p></div>
+          <div class="card dont"><h3><span data-icon="warn"></span> Non lasciarlo fuori</h3><p>Se è ferito, debole o fuori orario, non rimetterlo in giardino sperando che "si riprenda".</p></div>
+          <div class="card dont"><h3><span data-icon="info"></span> Non tenerlo in casa a lungo</h3><p>È un animale selvatico protetto: nutrirlo da soli senza indicazioni è rischioso. Il tempo conta.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="contribuisci">
+      <div class="wrap">
+        <h2 id="contribuisci">Contribuisci</h2>
+        <div class="card">
+          <p>I dati dei centri vivono in un file CSV pubblico: chiunque può correggerli o aggiungerne altri.</p>
+          <p class="cta">
+            <a class="btn secondary" href="https://github.com/francemazzi/riccio/blob/main/CONTRIBUTING.md">Come contribuire</a>
+            <a class="btn secondary" href="https://github.com/francemazzi/riccio/issues/new?template=segnala-cras.yml">Segnala un CRAS</a>
+          </p>
+          <p class="note">Questo sito non sostituisce il parere di un veterinario.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -75,12 +75,12 @@ Regola: un record con `verificato_il` più vecchio di 12 mesi viene mostrato con
 
 ## Fase 0 · Setup repo
 
-- [ ] Scaffold Vite `vanilla-ts` nella root del repo
-- [ ] `tsconfig` strict, `.editorconfig`, `.gitignore`
-- [ ] Struttura cartelle come sopra
-- [ ] `.github/workflows/deploy.yml`: build su push a `main`, deploy su GitHub Pages
-- [ ] `vite.config.ts` con `base: '/riccio/'`
-- [ ] `README.md`: cosa è, come avviare in locale, link alla roadmap
+- [x] Scaffold Vite `vanilla-ts` nella root del repo
+- [x] `tsconfig` strict, `.editorconfig`, `.gitignore`
+- [x] Struttura cartelle come sopra
+- [x] `.github/workflows/deploy.yml`: build su push a `main`, deploy su GitHub Pages
+- [x] `vite.config.ts` con `base: '/riccio/'`
+- [x] `README.md`: cosa è, come avviare in locale, link alla roadmap
 - [ ] Attivare GitHub Pages nelle impostazioni del repo (source: GitHub Actions)
 
 **Gate:** `npm run build` passa, la Action deploya una pagina vuota raggiungibile.
@@ -89,65 +89,65 @@ Regola: un record con `verificato_il` più vecchio di 12 mesi viene mostrato con
 
 Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 
-- [ ] `index.html`: cos'è il progetto in due righe
-- [ ] Blocco "Hai trovato un riccio?" con le 3 regole (fuori di giorno = emergenza, scatola e calore, chiama un CRAS)
-- [ ] Blocco "Cosa NON fare" (latte, olio sulle zecche, lasciarlo fuori)
-- [ ] CTA "Trova un CRAS" e "Fai il triage" (disattivati finché le pagine non esistono)
-- [ ] Sezione "Contribuisci": link a CONTRIBUTING e al template issue
-- [ ] CSS mobile first, variabili per colori, `prefers-color-scheme`, font di sistema
-- [ ] Meta tag OG e favicon
+- [x] `index.html`: cos'è il progetto in due righe
+- [x] Blocco "Hai trovato un riccio?" con le 3 regole (fuori di giorno = emergenza, scatola e calore, chiama un CRAS)
+- [x] Blocco "Cosa NON fare" (latte, olio sulle zecche, lasciarlo fuori)
+- [x] CTA "Trova un CRAS" e "Fai il triage" (disattivati finché le pagine non esistono)
+- [x] Sezione "Contribuisci": link a CONTRIBUTING e al template issue
+- [x] CSS mobile first, variabili per colori, `prefers-color-scheme`, font di sistema
+- [x] Meta tag OG e favicon
 - [ ] Pubblicare
 
 **Gate:** pagina online, leggibile su uno schermo da 360px, Lighthouse accessibilità e performance sopra 90.
 
 ## Fase 2 · Dataset CRAS
 
-- [ ] `data/cras.csv` con header e 3 righe di esempio reali
-- [ ] `scripts/validate-cras.ts`: header esatto, `id` unici, lat/lon in Italia, telefono valido, data valida, enum rispettati
-- [ ] `scripts/build-data.ts`: CSV → `src/generated/cras.json` in fase di build
-- [ ] `.github/workflows/ci.yml`: esegue validazione su ogni PR che tocca `data/`
-- [ ] `CONTRIBUTING.md`: come aggiungere o correggere un centro modificando il CSV da GitHub
-- [ ] `.github/ISSUE_TEMPLATE/segnala-cras.yml`: form per chi non vuole toccare il CSV
-- [ ] Raccolta dati: Emilia-Romagna, Lombardia, Piemonte, Veneto
+- [x] `data/cras.csv` con header e 3 righe di esempio reali
+- [x] `scripts/validate-cras.ts`: header esatto, `id` unici, lat/lon in Italia, telefono valido, data valida, enum rispettati
+- [x] `scripts/build-data.ts`: CSV → `src/generated/cras.json` in fase di build
+- [x] `.github/workflows/ci.yml`: esegue validazione su ogni PR che tocca `data/`
+- [x] `CONTRIBUTING.md`: come aggiungere o correggere un centro modificando il CSV da GitHub
+- [x] `.github/ISSUE_TEMPLATE/segnala-cras.yml`: form per chi non vuole toccare il CSV
+- [ ] Raccolta dati: Emilia-Romagna, Lombardia, Piemonte, Veneto — **bloccato**: nessun accesso web nell'ambiente; vedi `data/candidati/`
 - [ ] Verifica telefonica di ogni record, `verificato_il` compilato
-- [ ] `npm run data:stale`: elenca i record scaduti
+- [x] `npm run data:stale`: elenca i record scaduti
 
 **Gate:** 50 record verificati, CI che blocca una PR con CSV rotto.
 
 ## Fase 3 · Lista CRAS per i cittadini
 
-- [ ] `src/pages/cras.html`: lista card, una per centro
-- [ ] Card: nome, comune e provincia, `tel:` grande, orari, badge accetta ricci / stalli, data verifica, link "apri in mappe" (URL OSM o Google Maps, nessuna libreria)
-- [ ] Filtro per regione e provincia, ricerca testo
-- [ ] Geolocalizzazione con `navigator.geolocation`: ordina per distanza (Haversine), fallback alla scelta manuale della provincia
-- [ ] Badge "da verificare" sui record vecchi
-- [ ] Bottone "segnala errore" che apre una issue precompilata con l'`id`
-- [ ] Stato vuoto: "nessun centro in zona, chiama il 1515"
-- [ ] Attivare la CTA sulla landing
-- [ ] (opzionale) mappa Leaflet con marker, caricata solo su richiesta
+- [x] `src/pages/cras.html`: lista card, una per centro
+- [x] Card: nome, comune e provincia, `tel:` grande, orari, badge accetta ricci / stalli, data verifica, link "apri in mappe" (URL OSM o Google Maps, nessuna libreria)
+- [x] Filtro per regione e provincia, ricerca testo
+- [x] Geolocalizzazione con `navigator.geolocation`: ordina per distanza (Haversine), fallback alla scelta manuale della provincia
+- [x] Badge "da verificare" sui record vecchi
+- [x] Bottone "segnala errore" che apre una issue precompilata con l'`id`
+- [x] Stato vuoto: "nessun centro in zona, chiama il 1515"
+- [x] Attivare la CTA sulla landing
+- [ ] (opzionale) mappa Leaflet con marker, caricata solo su richiesta — non fatto (opzionale, evita una dipendenza)
 
 **Gate:** da una posizione nel Nord Italia il primo risultato è corretto e chiamabile in due tap.
 
 ## Fase 4 · Triage
 
-- [ ] `data/triage.json`: nodi con `id`, `domanda`, `opzioni[{testo, next}]`, esiti con `livello` (`lascialo` / `scalda-e-chiama` / `urgenza`) e `istruzioni`
-- [ ] Contenuto scritto con un veterinario o un centro partner. **Senza questa firma la pagina non si pubblica.**
-- [ ] `src/lib/triage.ts`: motore step by step, tasto indietro, barra avanzamento, nessuno stato in URL durante il percorso
-- [ ] `src/pages/riccio.html`: 5 domande massimo (giorno o notte, si chiude, peso, mosche o zecche, stagione)
-- [ ] Schermata esito: livello, istruzioni scatola, CRAS più vicino dalla fase 3
-- [ ] Esito condivisibile: URL con `?esito=urgenza`, meta OG dedicati
-- [ ] Validazione dello schema `triage.json` in CI (nessun nodo orfano, ogni percorso termina in un esito)
-- [ ] Attivare la CTA sulla landing
+- [x] `data/triage.json`: nodi con `id`, `domanda`, `opzioni[{testo, next}]`, esiti con `livello` (`lascialo` / `scalda-e-chiama` / `urgenza`) e `istruzioni`
+- [ ] Contenuto scritto con un veterinario o un centro partner. **Senza questa firma la pagina non si pubblica.** — bozza pubblicata con avviso `revisionato: false`
+- [x] `src/lib/triage.ts`: motore step by step, tasto indietro, barra avanzamento, nessuno stato in URL durante il percorso
+- [x] `src/pages/riccio.html`: 5 domande massimo (giorno o notte, si chiude, peso, mosche o zecche, stagione)
+- [x] Schermata esito: livello, istruzioni scatola, CRAS più vicino dalla fase 3
+- [x] Esito condivisibile: URL con `?esito=urgenza`, meta OG dedicati
+- [x] Validazione dello schema `triage.json` in CI (nessun nodo orfano, ogni percorso termina in un esito)
+- [x] Attivare la CTA sulla landing
 
 **Gate:** il partner conferma che chi arriva dal triage è preparato meglio.
 
 ## Fase 5 · Qualità e manutenzione
 
-- [ ] PWA: `manifest.json`, service worker, lista e triage funzionano offline
-- [ ] Action mensile che apre una issue con i record scaduti
-- [ ] Accessibilità: navigazione da tastiera, contrasti, `aria` sui bottoni
-- [ ] Test del motore triage e della validazione CSV (Vitest)
-- [ ] Analytics solo se privacy friendly e senza cookie, altrimenti nessuna
+- [x] PWA: `manifest.json`, service worker, lista e triage funzionano offline
+- [x] Action mensile che apre una issue con i record scaduti
+- [x] Accessibilità: navigazione da tastiera, contrasti, `aria` sui bottoni
+- [x] Test del motore triage e della validazione CSV (Vitest)
+- [x] Analytics solo se privacy friendly e senza cookie, altrimenti nessuna
 - [ ] Governance: dominio e dati intestati a un'associazione, repo con almeno un secondo manutentore
 
 ---

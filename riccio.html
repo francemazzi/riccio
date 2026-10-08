@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Triage del riccio · Riccio</title>
+  <meta name="description" content="Hai trovato un riccio? Rispondi a poche domande e scopri se serve urgenza, se scaldarlo e chiamare un CRAS o se lasciarlo stare.">
+  <meta name="theme-color" content="#4a3728">
+  <link rel="manifest" href="/riccio/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/riccio/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/riccio/favicon.svg">
+  <meta property="og:title" content="Triage del riccio in 60 secondi">
+  <meta property="og:description" content="Poche domande per capire se il riccio che hai trovato ha bisogno di aiuto.">
+  <meta property="og:image" content="https://francemazzi.github.io/riccio/og.svg">
+</head>
+<body>
+  <a class="skip" href="#triage">Vai al triage</a>
+  <header id="site-header"></header>
+  <main class="wrap">
+    <div class="page-head">
+      <h1>Triage del riccio</h1>
+      <p>Poche domande, nessun dato salvato. Se è un'emergenza, chiama subito un centro.</p>
+    </div>
+    <nav class="tabs-nav" aria-label="Sezioni della pagina"><a href="#triage">Fai il triage</a><a href="#segni">Come sta il riccio? Guida ai segni</a></nav>
+    <div class="review" id="review" hidden></div>
+    <section id="triage" class="wizard" aria-label="Triage"><div id="wizard" aria-live="polite"></div></section>
+
+    <section id="segni" class="guide" aria-labelledby="segni-h">
+      <h2 id="segni-h">Come sta il riccio? Guida ai segni</h2>
+      <p class="hint">Cerca un sintomo o filtra per livello per capire cosa significa quello che vedi.</p>
+      <div class="card filters">
+        <label class="field wide" for="segni-q">Cerca un segno (es. zecche, respiro, freddo)
+          <input id="segni-q" type="search" autocomplete="off" placeholder="es. zecche">
+        </label>
+        <label class="field" for="segni-cat">Categoria<select id="segni-cat"></select></label>
+        <div class="wide"><div class="chips" id="segni-chips" role="group" aria-label="Filtra per livello"></div></div>
+      </div>
+      <p class="count" id="segni-count" aria-live="polite"></p>
+      <table class="segni">
+        <thead><tr><th scope="col">Segno</th><th scope="col">Come si riconosce</th><th scope="col">Livello</th><th scope="col">Cosa fare</th></tr></thead>
+        <tbody id="segni-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/pages/riccio.ts"></script>
+</body>
+</html>

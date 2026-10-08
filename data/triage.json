@@ -1,0 +1,310 @@
+{
+  "versione": 1,
+  "revisionato": false,
+  "avviso": "Bozza compilata da linee guida pubbliche dei centri di recupero, in attesa di revisione veterinaria. Non sostituisce il parere di un veterinario.",
+  "inizio": "orario",
+  "nodi": {
+    "orario": {
+      "domanda": "Che momento è?",
+      "aiuto": "I ricci sono animali notturni: vederli in giro con la luce è un segnale importante.",
+      "opzioni": [
+        {
+          "testo": "Di notte (dopo il tramonto)",
+          "icona": "moon",
+          "next": "reazione_n"
+        },
+        {
+          "testo": "Di giorno",
+          "icona": "sun",
+          "next": "aspetto_d"
+        }
+      ]
+    },
+    "aspetto_d": {
+      "domanda": "Com'è il riccio?",
+      "aiuto": "Guardalo da vicino senza toccarlo a mani nude.",
+      "opzioni": [
+        {
+          "testo": "Barcolla, è fermo, gira in tondo, si trascina o è ferito",
+          "icona": "warn",
+          "esito": "urgenza"
+        },
+        {
+          "testo": "Sembra in forma ma è allo scoperto",
+          "icona": "check",
+          "next": "segni_d"
+        }
+      ]
+    },
+    "segni_d": {
+      "domanda": "Vedi mosche, uova bianche, larve, ferite o tante zecche?",
+      "aiuto": "Le uova delle mosche sembrano chicchi di riso, di solito vicino a occhi, naso, ferite.",
+      "opzioni": [
+        {
+          "testo": "Mosche, uova bianche o larve",
+          "icona": "fly",
+          "esito": "urgenza"
+        },
+        {
+          "testo": "Ferite, sangue o aculei mancanti a chiazze",
+          "icona": "bandage",
+          "esito": "urgenza"
+        },
+        {
+          "testo": "Tante zecche, nient'altro",
+          "icona": "tick",
+          "esito": "scalda-e-chiama"
+        },
+        {
+          "testo": "Niente di tutto questo",
+          "icona": "check",
+          "esito": "scalda-e-chiama"
+        }
+      ]
+    },
+    "reazione_n": {
+      "domanda": "Se lo sfiori con un panno, cosa fa?",
+      "aiuto": "Un riccio sano si chiude a palla e sbuffa.",
+      "opzioni": [
+        {
+          "testo": "Si chiude a palla e sbuffa",
+          "icona": "check",
+          "next": "segni_n"
+        },
+        {
+          "testo": "Non reagisce, è molle o barcolla",
+          "icona": "warn",
+          "esito": "urgenza"
+        }
+      ]
+    },
+    "segni_n": {
+      "domanda": "Vedi mosche, uova bianche, larve, ferite o tante zecche?",
+      "aiuto": "Le uova delle mosche sembrano chicchi di riso, di solito vicino a occhi, naso, ferite.",
+      "opzioni": [
+        {
+          "testo": "Mosche, uova bianche o larve",
+          "icona": "fly",
+          "esito": "urgenza"
+        },
+        {
+          "testo": "Ferite, sangue o aculei mancanti a chiazze",
+          "icona": "bandage",
+          "esito": "urgenza"
+        },
+        {
+          "testo": "Tante zecche, nient'altro",
+          "icona": "tick",
+          "esito": "scalda-e-chiama"
+        },
+        {
+          "testo": "Niente di tutto questo",
+          "icona": "check",
+          "next": "peso_n"
+        }
+      ]
+    },
+    "peso_n": {
+      "domanda": "Com'è di taglia e di forma?",
+      "aiuto": "Un adulto sano è tondo e pesa più di 600 g; un piccolo che sta in una mano pesa meno di 300 g.",
+      "opzioni": [
+        {
+          "testo": "Piccolo (sta in una mano) o magro, con la pancia incavata",
+          "icona": "scale",
+          "esito": "scalda-e-chiama"
+        },
+        {
+          "testo": "Normale, ben tondo",
+          "icona": "check",
+          "next": "stagione_n"
+        }
+      ]
+    },
+    "stagione_n": {
+      "domanda": "In che periodo dell'anno siamo?",
+      "aiuto": "Tra dicembre e febbraio i ricci sani sono di norma in letargo.",
+      "opzioni": [
+        {
+          "testo": "Da marzo a novembre",
+          "icona": "sun",
+          "esito": "lascialo"
+        },
+        {
+          "testo": "Inverno (dicembre-febbraio)",
+          "icona": "heat",
+          "esito": "scalda-e-chiama"
+        }
+      ]
+    }
+  },
+  "esiti": {
+    "urgenza": {
+      "livello": "urgenza",
+      "titolo": "Urgenza: chiama subito un centro",
+      "sintesi": "Il riccio ha bisogno di cure veterinarie o di un CRAS il prima possibile.",
+      "istruzioni": [
+        "Indossa guanti o usa un panno e mettilo in una scatola di cartone alta, con un asciugamano.",
+        "Se è freddo, appoggia accanto a lui una bottiglia d'acqua tiepida (non bollente) avvolta in un panno.",
+        "Metti la scatola in un posto buio, silenzioso e al caldo, lontano da cani e gatti.",
+        "Chiama subito un CRAS o un veterinario e segui le loro indicazioni sul trasporto."
+      ],
+      "evita": [
+        "Latte o pane: fanno male.",
+        "Olio, creme o prodotti sulle zecche o sulle ferite.",
+        "Lasciarlo fuori o aspettare che passi da solo."
+      ]
+    },
+    "scalda-e-chiama": {
+      "livello": "scalda-e-chiama",
+      "titolo": "Scaldalo e chiama un CRAS",
+      "sintesi": "Non è detto che sia grave, ma da solo potrebbe non farcela: serve un parere esperto oggi.",
+      "istruzioni": [
+        "Mettilo in una scatola di cartone alta con un asciugamano, in un posto tranquillo, buio e al caldo.",
+        "Aggiungi una bottiglia d'acqua tiepida avvolta in un panno, in modo che possa allontanarsi se ha troppo caldo.",
+        "Puoi lasciargli un piattino basso con acqua fresca.",
+        "Chiama un CRAS: ti dirà se portarlo e come aspettare."
+      ],
+      "evita": [
+        "Latte o pane.",
+        "Tenerlo in casa per giorni senza sentire un centro.",
+        "Togliere le zecche con olio o fai-da-te."
+      ]
+    },
+    "lascialo": {
+      "livello": "lascialo",
+      "titolo": "Probabilmente sta bene: lascialo stare",
+      "sintesi": "Sembra un riccio sano che fa la sua vita notturna.",
+      "istruzioni": [
+        "Osserva da lontano e lascialo proseguire.",
+        "Se vuoi aiutarlo, lascia in giardino un piattino d'acqua e un varco nella recinzione.",
+        "Se nei giorni dopo lo vedi di giorno o lo vedi peggiorare, rifai il triage."
+      ],
+      "evita": [
+        "Latte o pane.",
+        "Portarlo via o spostarlo."
+      ]
+    }
+  },
+  "segni": [
+    {
+      "segno": "Fuori di giorno, allo scoperto",
+      "categoria": "Comportamento",
+      "icona": "sun",
+      "come_riconoscerlo": "È in giro o dorme in pieno sole.",
+      "livello": "urgenza",
+      "cosa_fare": "Mettilo in una scatola e chiama un CRAS."
+    },
+    {
+      "segno": "Barcolla, trema o gira in tondo",
+      "categoria": "Comportamento",
+      "icona": "warn",
+      "come_riconoscerlo": "Cammina storto, si trascina, cade.",
+      "livello": "urgenza",
+      "cosa_fare": "Scatola calda e chiama subito."
+    },
+    {
+      "segno": "Non si chiude a palla",
+      "categoria": "Comportamento",
+      "icona": "warn",
+      "come_riconoscerlo": "Se lo sfiori con un panno è molle o non reagisce.",
+      "livello": "urgenza",
+      "cosa_fare": "Scatola calda e chiama subito."
+    },
+    {
+      "segno": "Uova bianche, mosche o larve",
+      "categoria": "Parassiti",
+      "icona": "fly",
+      "come_riconoscerlo": "Chicchi bianchi come riso vicino a occhi, naso, ferite.",
+      "livello": "urgenza",
+      "cosa_fare": "Chiama subito: è un'emergenza."
+    },
+    {
+      "segno": "Ferite, sangue, aculei persi a chiazze",
+      "categoria": "Ferite",
+      "icona": "bandage",
+      "come_riconoscerlo": "Tagli, morsi, fili o reti attorno al corpo.",
+      "livello": "urgenza",
+      "cosa_fare": "Scatola e chiama subito."
+    },
+    {
+      "segno": "Respiro rumoroso o affannoso",
+      "categoria": "Respiro",
+      "icona": "lung",
+      "come_riconoscerlo": "Tosse, sibili, muco dal naso, bocca aperta.",
+      "livello": "urgenza",
+      "cosa_fare": "Chiama subito un CRAS o un veterinario."
+    },
+    {
+      "segno": "Pancia fredda al tatto",
+      "categoria": "Aspetto",
+      "icona": "heat",
+      "come_riconoscerlo": "Il corpo è freddo e lento.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Bottiglia tiepida avvolta in un panno e chiama."
+    },
+    {
+      "segno": "Magro, pancia incavata",
+      "categoria": "Aspetto",
+      "icona": "scale",
+      "come_riconoscerlo": "Si vede il collo stretto dietro la testa.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Scatola, acqua fresca e chiama un CRAS."
+    },
+    {
+      "segno": "Piccolo, sta in una mano",
+      "categoria": "Aspetto",
+      "icona": "scale",
+      "come_riconoscerlo": "Pesa meno di 300 g, spesso da solo.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Scatola calda e chiama un CRAS."
+    },
+    {
+      "segno": "Occhi infossati o appiccicosi",
+      "categoria": "Aspetto",
+      "icona": "drop",
+      "come_riconoscerlo": "Pelle floscia, naso secco: può essere disidratato.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Acqua fresca in un piattino e chiama."
+    },
+    {
+      "segno": "Tante zecche",
+      "categoria": "Parassiti",
+      "icona": "tick",
+      "come_riconoscerlo": "Molte zecche attaccate, specie attorno a muso e orecchie.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Non usare olio: chiedi al centro."
+    },
+    {
+      "segno": "Sveglio in pieno inverno",
+      "categoria": "Situazione",
+      "icona": "heat",
+      "come_riconoscerlo": "Tra dicembre e febbraio dovrebbe essere in letargo.",
+      "livello": "scalda-e-chiama",
+      "cosa_fare": "Scalda e chiama per un consiglio."
+    },
+    {
+      "segno": "Poche zecche, resto normale",
+      "categoria": "Parassiti",
+      "icona": "tick",
+      "come_riconoscerlo": "Qualche zecca ma si muove e si chiude a palla.",
+      "livello": "lascialo",
+      "cosa_fare": "Non serve intervenire da soli."
+    },
+    {
+      "segno": "Di notte, cammina deciso e tondo",
+      "categoria": "Comportamento",
+      "icona": "moon",
+      "come_riconoscerlo": "Va in giro, annusa, si chiude a palla se disturbato.",
+      "livello": "lascialo",
+      "cosa_fare": "Osserva da lontano."
+    },
+    {
+      "segno": "Mamma con piccoli nel nido",
+      "categoria": "Situazione",
+      "icona": "box",
+      "come_riconoscerlo": "Un nido in giardino con una femmina che entra ed esce.",
+      "livello": "lascialo",
+      "cosa_fare": "Non toccare. Chiama un CRAS solo se la mamma non torna."
+    }
+  ]
+}

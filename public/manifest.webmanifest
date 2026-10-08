@@ -1,0 +1,17 @@
+{
+  "name": "Riccio · CRAS e triage",
+  "short_name": "Riccio",
+  "description": "Hai trovato un riccio? Triage in 60 secondi e lista dei centri di recupero.",
+  "lang": "it",
+  "start_url": "/riccio/",
+  "scope": "/riccio/",
+  "display": "standalone",
+  "background_color": "#fbf6ec",
+  "theme_color": "#4a3728",
+  "icons": [
+    { "src": "/riccio/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/riccio/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/riccio/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/riccio/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
