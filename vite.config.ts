@@ -1,9 +1,9 @@
 import { defineConfig, type Plugin } from 'vitest/config';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
-import { footerHtml, headerHtml, pageId } from './src/lib/chrome';
+import { footerHtml, headerHtml, pageId, triageNavHtml, triagePage } from './src/lib/chrome';
 
-const PAGES = ['index.html', 'cras.html', 'riccio.html'];
+const PAGES = ['index.html', 'cras.html', 'riccio.html', 'segni.html'];
 const STATIC = ['favicon.svg', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'og.svg'];
 
 /** Inserisce header e footer nell'HTML in fase di build/dev (niente layout shift, funziona senza JS). */
@@ -16,7 +16,8 @@ function chrome(base: string): Plugin {
         const page = pageId(ctx.path);
         return html
           .replace('<header id="site-header"></header>', `<header id="site-header" class="site-header">${headerHtml(base, page)}</header>`)
-          .replace('<footer id="site-footer"></footer>', `<footer id="site-footer" class="site-footer">${footerHtml()}</footer>`);
+          .replace('<footer id="site-footer"></footer>', `<footer id="site-footer" class="site-footer">${footerHtml()}</footer>`)
+          .replace('<nav id="triage-nav"></nav>', `<nav id="triage-nav" class="triage-nav" aria-label="Sezioni del triage">${triageNavHtml(base, triagePage(ctx.path))}</nav>`);
       },
     },
   };
@@ -76,6 +77,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         cras: resolve(__dirname, 'cras.html'),
         riccio: resolve(__dirname, 'riccio.html'),
+        segni: resolve(__dirname, 'segni.html'),
       },
     },
   },

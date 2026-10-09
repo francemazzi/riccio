@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 const axe = readFileSync('node_modules/axe-core/axe.min.js', 'utf8');
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
 const base = 'http://localhost:4173/riccio/';
-const urls = ['', 'cras.html', 'cras.html?q=modena', 'riccio.html', 'riccio.html?esito=urgenza', 'riccio.html?esito=scalda-e-chiama', 'riccio.html?esito=lascialo'];
+const urls = ['', 'cras.html', 'cras.html?q=modena', 'riccio.html', 'segni.html', 'riccio.html?esito=urgenza', 'riccio.html?esito=scalda-e-chiama', 'riccio.html?esito=lascialo'];
 let bad = 0;
 for (const scheme of ['light', 'dark']) for (const vp of [{ width: 360, height: 740 }, { width: 1280, height: 800 }]) {
   const ctx = await b.newContext({ colorScheme: scheme, viewport: vp });

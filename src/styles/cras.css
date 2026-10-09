@@ -23,7 +23,7 @@
 .meta { font-size: .9rem; color: var(--muted); margin: .25rem 0; }
 .actions { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .5rem; font-size: .9rem; }
 .actions a { min-height: 44px; display: inline-flex; align-items: center; }
-.dist { font-weight: 700; color: var(--aculei-2); }
+.dist { font-weight: 700; color: var(--link); }
 .table-wrap { display: none; overflow-x: auto; margin: 1rem 0; }
 table.cras { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 table.cras caption { text-align: left; padding: .5rem; color: var(--muted); }

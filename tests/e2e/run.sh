@@ -13,6 +13,7 @@ node tests/e2e/cras.mjs
 node tests/e2e/triage.mjs
 node tests/e2e/offline.mjs
 node tests/e2e/a11y.mjs
+node tests/e2e/widths.mjs
 # dataset reale: ricostruisco senza fixture
 kill $PID 2>/dev/null || true; wait $PID 2>/dev/null || true
 npm run build >/dev/null

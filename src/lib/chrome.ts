@@ -7,7 +7,24 @@ const NAV = [
 ];
 
 export function pageId(htmlPath: string): string {
+  if (htmlPath.endsWith('segni.html')) return 'riccio'; // la guida fa parte della sezione "Triage"
   return NAV.find((n) => htmlPath.endsWith(n.file))?.id ?? 'home';
+}
+
+/** quale delle due pagine del triage è aperta */
+export function triagePage(htmlPath: string): 'triage' | 'segni' {
+  return htmlPath.endsWith('segni.html') ? 'segni' : 'triage';
+}
+
+/** Due pulsanti grandi, due pagine distinte (niente scroll tra sezioni). */
+export function triageNavHtml(base: string, page: 'triage' | 'segni'): string {
+  const voci = [
+    { id: 'triage', href: `${base}riccio.html`, titolo: 'Fai il triage', sotto: 'Poche domande: cosa fare adesso' },
+    { id: 'segni', href: `${base}segni.html`, titolo: 'Guida ai segni', sotto: 'Come sta il riccio? Cosa significa' },
+  ] as const;
+  return voci
+    .map((v) => `<a class="triage-btn${v.id === page ? ' is-current' : ''}" href="${v.href}"${v.id === page ? ' aria-current="page"' : ''}><strong>${v.titolo}</strong><span>${v.sotto}</span></a>`)
+    .join('');
 }
 
 export function headerHtml(base: string, page: string): string {

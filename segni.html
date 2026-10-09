@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Guida ai segni · Riccio</title>
+  <meta name="description" content="Come sta il riccio? Zecche, mosche, respiro, peso: cerca un segno e scopri se serve urgenza, se scaldarlo e chiamare un CRAS o se lasciarlo stare.">
+  <meta name="theme-color" content="#4a3728">
+  <link rel="manifest" href="/riccio/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/riccio/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/riccio/favicon.svg">
+  <meta property="og:title" content="Come sta il riccio? Guida ai segni">
+  <meta property="og:description" content="Segni da riconoscere in un riccio in difficoltà e cosa fare.">
+  <meta property="og:image" content="https://francemazzi.github.io/riccio/og.svg">
+</head>
+<body>
+  <a class="skip" href="#guida">Vai alla guida</a>
+  <header id="site-header"></header>
+  <main class="wrap">
+    <div class="page-head">
+      <h1>Come sta il riccio?</h1>
+      <p>Cerca un segno che vedi e scopri cosa significa e cosa fare.</p>
+    </div>
+    <nav id="triage-nav"></nav>
+    <div class="review" id="review" hidden></div>
+
+    <section id="guida" class="guide" aria-labelledby="segni-h">
+      <h2 id="segni-h" class="sr-only">Guida ai segni</h2>
+      <div class="card filters">
+        <label class="field wide" for="segni-q">Cerca un segno (es. zecche, respiro, freddo)
+          <input id="segni-q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="es. zecche">
+        </label>
+        <label class="field" for="segni-cat">Categoria<select id="segni-cat"></select></label>
+        <div class="wide"><div class="chips" id="segni-chips" role="group" aria-label="Filtra per livello"></div></div>
+      </div>
+      <p class="count" id="segni-count" aria-live="polite"></p>
+      <table class="segni">
+        <thead><tr><th scope="col">Segno</th><th scope="col">Come si riconosce</th><th scope="col">Livello</th><th scope="col">Cosa fare</th></tr></thead>
+        <tbody id="segni-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <footer id="site-footer"></footer>
+  <script type="module" src="/src/pages/segni.ts"></script>
+</body>
+</html>
