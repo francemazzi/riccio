@@ -31,6 +31,8 @@ function readUrl(): void {
     provincia: p.get('provincia') ?? '',
     soloRicci: p.get('ricci') === '1',
     soloVerificati: p.get('verificati') === '1',
+    soloH24: p.get('h24') === '1',
+    soloFontePrimaria: p.get('ufficiali') === '1',
   };
   const s = p.get('sort') as SortKey;
   sort = SORTS.includes(s) && s !== 'distanza' ? s : 'nome';
@@ -45,6 +47,8 @@ function writeUrl(): void {
   if (filtri.provincia) p.set('provincia', filtri.provincia);
   if (filtri.soloRicci) p.set('ricci', '1');
   if (filtri.soloVerificati) p.set('verificati', '1');
+  if (filtri.soloH24) p.set('h24', '1');
+  if (filtri.soloFontePrimaria) p.set('ufficiali', '1');
   if (sort !== 'nome' && sort !== 'distanza') p.set('sort', sort);
   if (desc) p.set('dir', 'desc');
   const qs = p.toString();
@@ -100,13 +104,17 @@ function bind(): void {
   $<HTMLSelectElement>('f-campo').value = filtri.campo;
   $<HTMLInputElement>('f-ricci').checked = filtri.soloRicci;
   $<HTMLInputElement>('f-verificati').checked = filtri.soloVerificati;
+  $<HTMLInputElement>('f-h24').checked = filtri.soloH24;
+  $<HTMLInputElement>('f-ufficiali').checked = filtri.soloFontePrimaria;
   q.addEventListener('input', () => { filtri.q = q.value; render(); });
   $<HTMLSelectElement>('f-campo').addEventListener('change', (e) => { filtri.campo = (e.target as HTMLSelectElement).value as Campo; render(); });
   $<HTMLSelectElement>('f-regione').addEventListener('change', (e) => { filtri.regione = (e.target as HTMLSelectElement).value; filtri.provincia = ''; render(); });
   $<HTMLSelectElement>('f-provincia').addEventListener('change', (e) => { filtri.provincia = (e.target as HTMLSelectElement).value; render(); });
   $<HTMLInputElement>('f-ricci').addEventListener('change', (e) => { filtri.soloRicci = (e.target as HTMLInputElement).checked; render(); });
   $<HTMLInputElement>('f-verificati').addEventListener('change', (e) => { filtri.soloVerificati = (e.target as HTMLInputElement).checked; render(); });
-  $('reset').addEventListener('click', () => { filtri = { ...FILTRI_VUOTI }; sort = 'nome'; desc = false; q.value = ''; $<HTMLSelectElement>('f-campo').value = 'tutti'; $<HTMLInputElement>('f-ricci').checked = false; $<HTMLInputElement>('f-verificati').checked = false; render(); });
+  $<HTMLInputElement>('f-h24').addEventListener('change', (e) => { filtri.soloH24 = (e.target as HTMLInputElement).checked; render(); });
+  $<HTMLInputElement>('f-ufficiali').addEventListener('change', (e) => { filtri.soloFontePrimaria = (e.target as HTMLInputElement).checked; render(); });
+  $('reset').addEventListener('click', () => { filtri = { ...FILTRI_VUOTI }; sort = 'nome'; desc = false; q.value = ''; $<HTMLSelectElement>('f-campo').value = 'tutti'; $<HTMLInputElement>('f-ricci').checked = false; $<HTMLInputElement>('f-verificati').checked = false; $<HTMLInputElement>('f-h24').checked = false; $<HTMLInputElement>('f-ufficiali').checked = false; render(); });
   $('thead').addEventListener('click', (e) => {
     const b = (e.target as HTMLElement).closest<HTMLElement>('button[data-sort]');
     if (!b) return;

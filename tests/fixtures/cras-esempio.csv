@@ -1,11 +1,11 @@
-id,nome,regione,provincia,comune,indirizzo,lat,lon,telefono,orari,sito,accetta_ricci,accetta_stalli,note,fonte,verificato_il
-esempio-modena,[ESEMPIO] Centro Modena,Emilia-Romagna,MO,Modena,Via Esempio 1,44.6471,10.9252,+39000000001,9-18,,si,si,Dato di prova,https://example.org/a,2026-06-01
-esempio-bologna,[ESEMPIO] Centro Bologna,Emilia-Romagna,BO,Bologna,Via Esempio 2,44.4949,11.3426,+39000000002;+39000000003,24h,,si,?,Dato di prova,https://example.org/b,2024-01-10
-esempio-milano,[ESEMPIO] Centro Milano,Lombardia,MI,Milano,Via Esempio 3,45.4642,9.19,+39000000004,,,si,no,Dato di prova,https://example.org/c,
-esempio-bergamo,[ESEMPIO] Centro Bergamo,Lombardia,BG,Bergamo,,45.6983,9.6773,+39000000005,lun-ven,,?,?,Dato di prova,https://example.org/d,2026-09-01
-esempio-torino,[ESEMPIO] Centro Torino,Piemonte,TO,Torino,Via Esempio 5,45.0703,7.6869,+39000000006,,,no,no,Solo uccelli,https://example.org/e,
-esempio-cuneo,[ESEMPIO] Centro Cuneo,Piemonte,CN,Cuneo,,44.3845,7.5427,+39000000007,,,si,si,Dato di prova,https://example.org/f,2026-03-15
-esempio-padova,[ESEMPIO] Centro Padova,Veneto,PD,Padova,Via Esempio 7,45.4064,11.8768,+39000000008,,,si,?,Dato di prova,https://example.org/g,
-esempio-verona,[ESEMPIO] Centro Verona,Veneto,VR,Verona,,45.4384,10.9916,+39000000009,,,si,?,Dato di prova,https://example.org/h,2025-02-01
-esempio-roma,[ESEMPIO] Centro Roma,Lazio,RM,Roma,Via Esempio 9,41.9028,12.4964,+39000000010,,,?,?,Dato di prova,https://example.org/i,
-esempio-palermo,[ESEMPIO] Centro Palermo,Sicilia,PA,Palermo,,38.1157,13.3615,+39000000011,,,si,?,Dato di prova,https://example.org/l,2026-08-20
+id,nome,regione,provincia,comune,indirizzo,lat,lon,telefono,orari,sito,accetta_ricci,accetta_stalli,note,fonte,verificato_il,ente,animali_accettati,territorio,h24,modalita,stato_centro,fonte_tipo,letto_il,precisione_coord
+esempio-modena,[ESEMPIO] Centro Modena,Emilia-Romagna,MO,Modena,Via Esempio 1,44.6471,10.9252,+39000000001,9-18,,si,si,Dato di prova,https://example.org/a,2026-06-01,Associazione Esempio,Ricci e piccoli mammiferi,Provincia di Modena,no,Consegna su appuntamento,attivo,primaria,2026-10-01,indirizzo
+esempio-bologna,[ESEMPIO] Centro Bologna,Emilia-Romagna,BO,Bologna,Via Esempio 2,44.4949,11.3426,+39000000002;+39000000003,24h,,si,?,Dato di prova,https://example.org/b,2024-01-10,Ente Esempio,Fauna selvatica,Bologna e provincia,si,Consegna a mano 24h,attivo,secondaria,2026-10-01,indirizzo
+esempio-milano,[ESEMPIO] Centro Milano,Lombardia,MI,Milano,Via Esempio 3,45.4642,9.19,+39000000004,,,si,no,Dato di prova,https://example.org/c,,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-bergamo,[ESEMPIO] Centro Bergamo,Lombardia,BG,Bergamo,,45.6983,9.6773,+39000000005,lun-ven,,?,?,Dato di prova,https://example.org/d,2026-09-01,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-torino,[ESEMPIO] Centro Torino,Piemonte,TO,Torino,Via Esempio 5,45.0703,7.6869,+39000000006,,,no,no,Solo uccelli,https://example.org/e,,,Solo uccelli,,?,,attivo,secondaria,2026-10-01,comune
+esempio-cuneo,[ESEMPIO] Centro Cuneo,Piemonte,CN,Cuneo,,44.3845,7.5427,+39000000007,,,si,si,Dato di prova,https://example.org/f,2026-03-15,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-padova,[ESEMPIO] Centro Padova,Veneto,PD,Padova,Via Esempio 7,45.4064,11.8768,+39000000008,,,si,?,Dato di prova,https://example.org/g,,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-verona,[ESEMPIO] Centro Verona,Veneto,VR,Verona,,45.4384,10.9916,+39000000009,,,si,?,Dato di prova,https://example.org/h,2025-02-01,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-roma,[ESEMPIO] Centro Roma,Lazio,RM,Roma,Via Esempio 9,41.9028,12.4964,+39000000010,,,?,?,Dato di prova,https://example.org/i,,,,,?,,attivo,secondaria,2026-10-01,comune
+esempio-palermo,[ESEMPIO] Centro Palermo,Sicilia,PA,Palermo,,38.1157,13.3615,+39000000011,,,si,?,Dato di prova,https://example.org/l,2026-08-20,,,,?,,attivo,secondaria,2026-10-01,comune

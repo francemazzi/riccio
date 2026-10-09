@@ -12,16 +12,18 @@ export interface Filtri {
   provincia: string;
   soloRicci: boolean;
   soloVerificati: boolean;
+  soloH24: boolean;
+  soloFontePrimaria: boolean;
 }
 
-export const FILTRI_VUOTI: Filtri = { q: '', campo: 'tutti', regione: '', provincia: '', soloRicci: false, soloVerificati: false };
+export const FILTRI_VUOTI: Filtri = { q: '', campo: 'tutti', regione: '', provincia: '', soloRicci: false, soloVerificati: false, soloH24: false, soloFontePrimaria: false };
 
 export function norm(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
 
 function haystack(c: Cras, campo: Campo): string {
-  if (campo === 'tutti') return norm([c.nome, c.comune, c.provincia, c.regione, c.indirizzo, c.note].join(' '));
+  if (campo === 'tutti') return norm([c.nome, c.comune, c.provincia, c.regione, c.indirizzo, c.note, c.territorio, c.animali_accettati, c.ente].join(' '));
   return norm(c[campo]);
 }
 
@@ -31,6 +33,8 @@ export function filtra(lista: Cras[], f: Filtri, oggi?: Date): Cras[] {
     if (f.regione && c.regione !== f.regione) return false;
     if (f.provincia && c.provincia !== f.provincia) return false;
     if (f.soloRicci && c.accetta_ricci === 'no') return false;
+    if (f.soloH24 && c.h24 !== 'si') return false;
+    if (f.soloFontePrimaria && c.fonte_tipo !== 'primaria') return false;
     if (f.soloVerificati && statoVerifica(c.verificato_il, oggi) !== 'verificato') return false;
     if (!tokens.length) return true;
     const h = haystack(c, f.campo);

@@ -108,8 +108,8 @@ Prima cosa online. Solo contenuto statico, nessun dato dinamico.
 - [x] `.github/workflows/ci.yml`: esegue validazione su ogni PR che tocca `data/`
 - [x] `CONTRIBUTING.md`: come aggiungere o correggere un centro modificando il CSV da GitHub
 - [x] `.github/ISSUE_TEMPLATE/segnala-cras.yml`: form per chi non vuole toccare il CSV
-- [ ] Raccolta dati: Emilia-Romagna, Lombardia, Piemonte, Veneto — **bloccato**: nessun accesso web nell'ambiente; vedi `data/candidati/`
-- [ ] Verifica telefonica di ogni record, `verificato_il` compilato
+- [x] Raccolta dati: Emilia-Romagna, Lombardia, Piemonte, Veneto (+ altre regioni): 84 centri letti da fonti ufficiali e di terzi, vedi `data/FONTI.md`
+- [ ] Verifica telefonica di ogni record, `verificato_il` compilato — **da fare a mano**: i record sono "da verificare"
 - [x] `npm run data:stale`: elenca i record scaduti
 
 **Gate:** 50 record verificati, CI che blocca una PR con CSV rotto.

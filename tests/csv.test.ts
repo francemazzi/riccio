@@ -3,7 +3,7 @@ import { parseCsv, toCsv } from '../src/lib/csv';
 import { HEADER, parseCras, statoVerifica } from '../src/lib/cras';
 
 const h = HEADER.join(',');
-const ok = 'a-b,Nome,Emilia-Romagna,MO,Modena,Via 1,44.6,10.9,+39059123456,,,si,?,,https://x.it,';
+const ok = 'a-b,Nome,Emilia-Romagna,MO,Modena,Via 1,44.6,10.9,+39059123456,,,si,?,,https://x.it,,Ente,Ricci,Modena,no,,attivo,primaria,2026-10-01,indirizzo';
 
 describe('csv', () => {
   it('gestisce apici e virgole', () => {
@@ -33,8 +33,16 @@ describe('validazione CRAS', () => {
   it('coordinate fuori Italia', () => {
     expect(parseCras(`${h}\n${ok.replace('44.6,10.9', '10,10')}\n`).errors.join()).toMatch(/fuori dall'Italia/);
   });
+  it('campi nuovi: stato, fonte, data di lettura, precisione', () => {
+    const bad = ok.replace('attivo,primaria,2026-10-01,indirizzo', 'boh,terza,,satellite');
+    const e = parseCras(`${h}\n${bad}\n`).errors.join('\n');
+    expect(e).toMatch(/stato_centro/);
+    expect(e).toMatch(/fonte_tipo/);
+    expect(e).toMatch(/letto_il/);
+    expect(e).toMatch(/precisione_coord/);
+  });
   it('telefono, enum e data', () => {
-    const bad = ok.replace('+39059123456', '059123').replace(',si,?,', ',boh,?,').replace(/,$/, ',2026-13-45');
+    const bad = ok.replace('+39059123456', '059123').replace(',si,?,', ',boh,?,').replace('https://x.it,,Ente','https://x.it,2026-13-45,Ente');
     const e = parseCras(`${h}\n${bad}\n`).errors.join('\n');
     expect(e).toMatch(/telefono/);
     expect(e).toMatch(/accetta_ricci/);
