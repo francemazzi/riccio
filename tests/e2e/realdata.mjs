@@ -13,6 +13,7 @@ for (const [label, vp] of [['mobile', { width: 360, height: 740 }], ['desktop', 
   const page = await ctx.newPage();
   const rows = label === 'mobile' ? '#list-cards > li' : '#tbody > tr';
   await page.goto(base, { waitUntil: 'networkidle' });
+  await t(`${label}: nessun overflow con tutti i centri (stato iniziale)`, async () => assert.equal(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), 0));
   await t(`${label}: tutti i ${data.length} centri`, async () => { assert.equal(await page.locator(rows).count(), data.length); assert.match(await page.textContent('#count'), new RegExp(`${data.length} centri su ${data.length}`)); });
   await t(`${label}: ricerca "modena" trova Il Pettirosso col suo numero`, async () => {
     await page.fill('#f-q', 'modena');
@@ -31,6 +32,7 @@ for (const [label, vp] of [['mobile', { width: 360, height: 740 }], ['desktop', 
     await page.click('#reset'); await page.click('#geo'); await page.waitForSelector('.dist', { state: 'attached' });
     const first = await page.locator(label === 'mobile' ? '#list-cards li .where' : '#tbody tr td:nth-child(4)').first().textContent();
     assert.match(first, /Emilia/);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth), 0);
   });
   await t(`${label}: ricerca per regione e provincia`, async () => {
     await page.click('#reset'); await page.selectOption('#f-regione', 'Lombardia');

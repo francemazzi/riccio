@@ -16,10 +16,12 @@ const t = async (n, f) => { try { await f(); console.log('ok', n); } catch (e) {
 await t('landing offline', async () => { await page.goto(base); assert.match(await page.textContent('h1'), /riccio/i); });
 await t('lista CRAS offline con filtro', async () => {
   await page.goto(base + 'cras.html?q=modena'); await page.waitForSelector('#tbody tr', { state: 'attached' });
+  assert.match(await page.title(), /Trova un CRAS/);
   assert.match(await page.textContent('#count'), /1 centro su 10/);
 });
 await t('triage offline', async () => {
   await page.goto(base + 'riccio.html'); await page.waitForSelector('.opt');
+  assert.match(await page.title(), /Triage/);
   await page.locator('.opt', { hasText: 'Di giorno' }).click(); await page.locator('.opt', { hasText: 'Barcolla' }).click();
   assert.match(await page.textContent('.result h2'), /Urgenza/);
 });

@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { footerHtml, headerHtml, pageId } from './src/lib/chrome';
 
+const PAGES = ['index.html', 'cras.html', 'riccio.html'];
 const STATIC = ['favicon.svg', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'og.svg'];
 
 /** Inserisce header e footer nell'HTML in fase di build/dev (niente layout shift, funziona senza JS). */
@@ -27,7 +28,7 @@ function precacheSw(base: string): Plugin {
     name: 'riccio-sw',
     apply: 'build',
     generateBundle(_, bundle) {
-      const files = [...Object.keys(bundle), ...STATIC].sort();
+      const files = [...new Set([...Object.keys(bundle), ...PAGES, ...STATIC])].sort(); // le pagine HTML non sono sempre nel bundle a questo punto
       const urls = ['', ...files].map((f) => base + f);
       const version = createHash('sha1').update(files.join('|')).digest('hex').slice(0, 10);
       this.emitFile({
