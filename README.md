@@ -3,7 +3,7 @@
 App statica per cittadini che trovano un riccio in difficoltà: **lista CRAS + triage in 60 secondi**.
 Nessun backend, nessun cookie, nessuna analytics: i dati vivono in `data/cras.csv` e `data/triage.json`.
 
-- **Trova un CRAS**: tabella (desktop) e card (mobile) filtrabili per città, nome, provincia, regione; "vicino a me" con geolocalizzazione (la posizione resta nel browser).
+- **Trova un CRAS**: una sola casella di ricerca che capisce comuni (anche con errori di battitura: «guastala», «pomponescoe»), nomi dei centri, numeri di telefono e parole come «24 ore» o «riccio». Se scrivi un comune ordina i centri per vicinanza; non restituisce mai zero risultati. Tabella (desktop) e card (mobile), filtri avanzati richiudibili, «Vicino a me» con geolocalizzazione (la posizione resta nel browser) e pannello mappa (dal basso su mobile, da destra su desktop).
 - **Triage**: al massimo 5 domande, esito `urgenza` / `scalda-e-chiama` / `lascialo`, link condivisibile (`?esito=urgenza`), centro più vicino.
 - **Come sta il riccio?**: guida ai segni (zecche, mosche, respiro, peso…) filtrabile per sintomo e livello.
 - Funziona offline dopo la prima visita (PWA), tema chiaro/scuro, accessibile (axe-core a zero violazioni).

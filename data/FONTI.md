@@ -29,3 +29,7 @@ Dati letti il **2026-10-08**. Nessuna verifica telefonica è stata fatta: `verif
 
 ## Discrepanze note tra fonti
 Registrate nel campo `note` di ogni record (es. Vanzago: numero vecchio 02 93549076 vs 366 9765549 sul sito; Tigliole d'Asti, Bitetto, Calimera, Roseto Valfortore, Prato).
+
+## Coordinate dei comuni (ricerca per luogo)
+Il file `src/data/comuni.json` permette di scrivere un comune e ottenere i centri più vicini. Coordinate: GeoNames (CC BY 4.0) e OpenStreetMap/Nominatim (© OpenStreetMap contributors, ODbL); nomi dei comuni ISTAT. Dettagli in `scripts/gazetteer/README.md`.
+La mappa nel pannello "Vedi sulla mappa" è un riquadro di OpenStreetMap (© OpenStreetMap contributors).

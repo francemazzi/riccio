@@ -1,0 +1,29 @@
+.drawer-lock { overflow: hidden; }
+.drawer-root { position: fixed; inset: 0; z-index: 50; }
+.drawer-backdrop { position: absolute; inset: 0; background: rgb(20 12 6 / 55%); opacity: 0; transition: opacity .2s; }
+.drawer { position: absolute; background: var(--surface); color: var(--text); display: flex; flex-direction: column; box-shadow: 0 -4px 24px rgb(0 0 0 / 30%); transition: transform .22s ease-out; outline: none; }
+.drawer-root.is-open .drawer-backdrop { opacity: 1; }
+/* mobile: pannello dal basso */
+.drawer { left: 0; right: 0; bottom: 0; max-height: 88dvh; border-radius: 18px 18px 0 0; transform: translateY(100%); }
+.drawer-root.is-open .drawer { transform: none; }
+.drawer-handle { width: 2.6rem; height: .3rem; border-radius: 99px; background: var(--border); margin: .5rem auto 0; flex: none; }
+.drawer-head { display: flex; gap: .75rem; align-items: flex-start; justify-content: space-between; padding: .6rem 1rem .4rem; flex: none; }
+.drawer-head h2 { margin: 0; font-size: 1.15rem; overflow-wrap: anywhere; }
+.drawer-head .meta { margin: .15rem 0 0; }
+.drawer-close { flex: none; width: 3rem; height: 3rem; border-radius: 50%; border: 2px solid var(--border); background: var(--surface); color: var(--text); display: grid; place-items: center; cursor: pointer; }
+.drawer-close:hover { background: var(--pelo); }
+.drawer-close .icon { width: 1.5rem; height: 1.5rem; }
+.drawer-body { padding: 0 1rem 1rem; overflow-y: auto; overscroll-behavior: contain; }
+.map-box { position: relative; height: clamp(14rem, 40dvh, 22rem); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--pelo); margin-bottom: .75rem; }
+.map-box iframe { width: 100%; height: 100%; border: 0; display: block; }
+.map-offline { padding: 1rem; margin: 0; }
+.dist-line { display: flex; gap: .35rem; align-items: center; }
+.credits { font-size: .75rem; }
+/* desktop: pannello da destra */
+@media (min-width: 48rem) {
+  .drawer { left: auto; top: 0; bottom: 0; right: 0; width: min(30rem, 92vw); max-height: none; border-radius: 0; transform: translateX(100%); box-shadow: -4px 0 24px rgb(0 0 0 / 30%); }
+  .drawer-handle { display: none; }
+  .drawer-head { padding-top: 1rem; }
+  .map-box { height: clamp(16rem, 45dvh, 28rem); }
+}
+@media (prefers-reduced-motion: reduce) { .drawer, .drawer-backdrop { transition: none; } }
