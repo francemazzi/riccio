@@ -21,26 +21,9 @@
       <h1>Triage del riccio</h1>
       <p>Poche domande, nessun dato salvato. Se è un'emergenza, chiama subito un centro.</p>
     </div>
-    <nav class="tabs-nav" aria-label="Sezioni della pagina"><a href="#triage">Fai il triage</a><a href="#segni">Come sta il riccio? Guida ai segni</a></nav>
+    <nav id="triage-nav"></nav>
     <div class="review" id="review" hidden></div>
     <section id="triage" class="wizard" aria-label="Triage"><div id="wizard" aria-live="polite"></div></section>
-
-    <section id="segni" class="guide" aria-labelledby="segni-h">
-      <h2 id="segni-h">Come sta il riccio? Guida ai segni</h2>
-      <p class="hint">Cerca un sintomo o filtra per livello per capire cosa significa quello che vedi.</p>
-      <div class="card filters">
-        <label class="field wide" for="segni-q">Cerca un segno (es. zecche, respiro, freddo)
-          <input id="segni-q" type="search" autocomplete="off" placeholder="es. zecche">
-        </label>
-        <label class="field" for="segni-cat">Categoria<select id="segni-cat"></select></label>
-        <div class="wide"><div class="chips" id="segni-chips" role="group" aria-label="Filtra per livello"></div></div>
-      </div>
-      <p class="count" id="segni-count" aria-live="polite"></p>
-      <table class="segni">
-        <thead><tr><th scope="col">Segno</th><th scope="col">Come si riconosce</th><th scope="col">Livello</th><th scope="col">Cosa fare</th></tr></thead>
-        <tbody id="segni-body"></tbody>
-      </table>
-    </section>
   </main>
   <footer id="site-footer"></footer>
   <script type="module" src="/src/pages/riccio.ts"></script>

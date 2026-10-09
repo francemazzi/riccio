@@ -7,8 +7,8 @@ import { icons } from '../lib/icons';
 import { locate, haversine } from '../lib/geo';
 import { card, esc } from '../lib/cras-view';
 import { collegaDrawer } from '../lib/drawer';
-import { norm } from '../lib/filter';
-import { LIVELLI, TriageSession, type Livello, type Segno, type Triage } from '../lib/triage';
+import { LIVELLI, TriageSession, type Livello, type Triage } from '../lib/triage';
+import { LIV, mostraAvviso } from '../lib/triage-ui';
 import triageData from '../../data/triage.json';
 import crasData from '../generated/cras.json';
 import type { Cras } from '../lib/cras';
@@ -19,17 +19,11 @@ const T = triageData as unknown as Triage;
 const crasAll = crasData as Cras[];
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
-const LIV: Record<Livello, { label: string; icon: keyof typeof icons; badge: string }> = {
-  urgenza: { label: 'Urgenza', icon: 'warn', badge: 'bad' },
-  'scalda-e-chiama': { label: 'Scalda e chiama', icon: 'heat', badge: 'warn' },
-  lascialo: { label: 'Lascialo stare', icon: 'check', badge: 'ok' },
-};
+// i vecchi link a riccio.html#segni portano alla pagina della guida
+if (location.hash === '#segni') location.replace('segni.html');
 
 /* ---------- avviso revisione ---------- */
-if (!T.revisionato) {
-  $('review').innerHTML = `<span>${icons.info()}</span><p style="margin:0"><strong>In attesa di revisione veterinaria.</strong> ${esc(T.avviso)}</p>`;
-  $('review').hidden = false;
-}
+mostraAvviso(T, $('review'));
 
 /* ---------- wizard ---------- */
 const session = new TriageSession(T);
@@ -69,6 +63,7 @@ function renderResult(l: Livello, shared = false, focus = true): void {
         <a class="btn secondary" href="tel:1515">${icons.phone()} Numero verde 1515</a>
         <button type="button" class="btn secondary" id="share">Copia link dell'esito</button>
         <button type="button" class="btn secondary" id="restart">Rifai il triage</button>
+        <a class="btn secondary" href="/riccio/segni.html">Guida ai segni</a>
         ${session.puoTornare ? '<button type="button" class="btn secondary" id="back">← Indietro</button>' : ''}
       </div>
       <p class="status" id="sharestatus" role="status"></p>
@@ -120,43 +115,3 @@ function draw(): void {
 const shared = new URLSearchParams(location.search).get('esito') as Livello | null;
 if (shared && LIVELLI.includes(shared)) renderResult(shared, true, false);
 else renderQuestion(false);
-
-/* ---------- guida ai segni (tabella filtrabile) ---------- */
-let liv: Livello | '' = '';
-let cat = '';
-let q = '';
-
-function renderSegni(): void {
-  const rows = T.segni.filter((s: Segno) =>
-    (!liv || s.livello === liv) && (!cat || s.categoria === cat) &&
-    norm([s.segno, s.come_riconoscerlo, s.cosa_fare, s.categoria].join(' ')).includes(norm(q)));
-  $('segni-count').textContent = `${rows.length} ${rows.length === 1 ? 'segno' : 'segni'} su ${T.segni.length}`;
-  $('segni-body').innerHTML = rows.length
-    ? rows.map((s) => {
-        const m = LIV[s.livello];
-        const ic = s.icona in icons ? icons[s.icona as keyof typeof icons]() : '';
-        return `<tr><th scope="row"><span class="nome">${ic}<span>${esc(s.segno)}<span class="cat">${esc(s.categoria)}</span></span></span></th>
-          <td data-label="Come si riconosce">${esc(s.come_riconoscerlo)}</td>
-          <td data-label="Livello"><span class="badge ${m.badge}">${icons[m.icon]()} ${esc(m.label)}</span></td>
-          <td data-label="Cosa fare">${esc(s.cosa_fare)}</td></tr>`;
-      }).join('')
-    : `<tr><td colspan="4">Nessun segno corrisponde. <button type="button" class="chip" id="segni-reset">Azzera</button></td></tr>`;
-  document.querySelectorAll<HTMLElement>('.chip[data-liv]').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.liv ?? '') === liv)));
-}
-
-const cats = [...new Set(T.segni.map((s) => s.categoria))].sort((a, b) => a.localeCompare(b, 'it'));
-$<HTMLSelectElement>('segni-cat').innerHTML = '<option value="">Tutte le categorie</option>' + cats.map((c) => `<option>${esc(c)}</option>`).join('');
-$('segni-chips').innerHTML = [['', 'Tutti'], ...LIVELLI.slice().reverse().map((l) => [l, LIV[l].label])]
-  .map(([v, l]) => `<button type="button" class="chip" data-liv="${v}" aria-pressed="false">${l}</button>`).join('');
-$('segni-chips').addEventListener('click', (e) => {
-  const b = (e.target as HTMLElement).closest<HTMLElement>('.chip[data-liv]');
-  if (b) { liv = (b.dataset.liv ?? '') as Livello | ''; renderSegni(); }
-});
-$<HTMLInputElement>('segni-q').addEventListener('input', (e) => { q = (e.target as HTMLInputElement).value; renderSegni(); });
-$<HTMLSelectElement>('segni-cat').addEventListener('change', (e) => { cat = (e.target as HTMLSelectElement).value; renderSegni(); });
-$('segni-body').addEventListener('click', (e) => {
-  if ((e.target as HTMLElement).closest('#segni-reset')) {
-    liv = ''; cat = ''; q = ''; $<HTMLInputElement>('segni-q').value = ''; $<HTMLSelectElement>('segni-cat').value = ''; renderSegni();
-  }
-});
-renderSegni();

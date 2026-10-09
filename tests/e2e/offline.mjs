@@ -27,6 +27,7 @@ await t('triage offline', async () => {
   await page.locator('.opt', { hasText: 'Di giorno' }).click(); await page.locator('.opt', { hasText: 'Barcolla' }).click();
   assert.match(await page.textContent('.result h2'), /Urgenza/);
 });
+await t('guida ai segni offline', async () => { await page.goto(base + 'segni.html'); await page.waitForSelector('#segni-body tr'); assert.match(await page.title(), /Guida ai segni/); });
 await t('esito condiviso offline', async () => { await page.goto(base + 'riccio.html?esito=lascialo'); assert.match(await page.textContent('.result h2'), /lascialo/i); });
 await b.close();
 process.exit(fails ? 1 : 0);

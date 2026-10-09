@@ -66,7 +66,35 @@ for (const [label, vp] of [['mobile', { width: 360, height: 740 }], ['desktop', 
     await page.focus('.opt'); await page.keyboard.press('Enter');
     assert.match(await page.textContent('#q'), /sfiori/);
   });
+  await check(`${label}: due pulsanti portano a due pagine distinte`, async () => {
+    await page.goto(base, { waitUntil: 'networkidle' });
+    // pagina del triage: solo il wizard, niente guida
+    assert.equal(await page.locator('#segni-body').count(), 0); assert.ok((await page.locator('.opt').count()) >= 2);
+    const nav = page.locator('#triage-nav a'); assert.equal(await nav.count(), 2);
+    assert.equal(await page.getAttribute('#triage-nav a.is-current', 'aria-current'), 'page');
+    for (const i of [0, 1]) assert.ok((await nav.nth(i).boundingBox()).height >= 56, 'pulsante alto almeno 56px');
+    assert.equal(await page.evaluate(() => document.documentElement.scrollHeight <= innerHeight * 3), true, 'la pagina non è lunghissima');
+    // → guida
+    await page.click('#triage-nav a:not(.is-current)'); await page.waitForURL(/segni\.html$/);
+    assert.match(await page.title(), /Guida ai segni/); assert.equal(await page.locator('.opt').count(), 0); assert.ok((await page.locator('#segni-body tr').count()) >= 10);
+    assert.match(await page.textContent('#triage-nav a.is-current'), /Guida ai segni/); assert.match(await page.textContent('#review'), /revisione veterinaria/);
+    assert.match(await page.getAttribute('.nav a[aria-current="page"]', 'href'), /riccio\.html$/); // l'header resta su "Triage"
+    // → torna al triage
+    await page.click('#triage-nav a:not(.is-current)'); await page.waitForURL(/riccio\.html$/);
+    assert.ok((await page.locator('.opt').count()) >= 2); assert.equal(await page.locator('#segni-body').count(), 0);
+    // il tasto Indietro del browser
+    await page.goBack(); await page.waitForURL(/segni\.html$/); assert.ok((await page.locator('#segni-body tr').count()) >= 10);
+  });
+  await check(`${label}: il vecchio link riccio.html#segni porta alla guida`, async () => {
+    await page.goto(base + '#segni', { waitUntil: 'networkidle' }); await page.waitForURL(/segni\.html/);
+    assert.ok((await page.locator('#segni-body tr').count()) >= 10);
+  });
+  await check(`${label}: dall'esito c'è il link alla guida`, async () => {
+    await page.goto(base + '?esito=urgenza', { waitUntil: 'networkidle' });
+    await page.click('.result a[href$="segni.html"]'); await page.waitForURL(/segni\.html$/);
+  });
   await check(`${label}: guida segni filtrabile`, async () => {
+    await page.goto(base.replace('riccio.html', 'segni.html'), { waitUntil: 'networkidle' });
     const total = await page.locator('#segni-body tr').count(); assert.ok(total >= 10);
     await page.fill('#segni-q', 'zecche');
     assert.ok((await page.locator('#segni-body tr').count()) < total);
