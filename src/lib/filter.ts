@@ -1,13 +1,12 @@
 import type { Cras } from './cras';
 import { statoVerifica } from './cras';
 import { haversine, type Point } from './geo';
+import { fold } from './fuzzy';
 
-export type Campo = 'tutti' | 'nome' | 'comune' | 'provincia' | 'regione';
 export type SortKey = 'nome' | 'comune' | 'provincia' | 'regione' | 'distanza';
 
+/** Filtri "avanzati" (precisi): la ricerca libera è in search.ts */
 export interface Filtri {
-  q: string;
-  campo: Campo;
   regione: string;
   provincia: string;
   soloRicci: boolean;
@@ -16,19 +15,11 @@ export interface Filtri {
   soloFontePrimaria: boolean;
 }
 
-export const FILTRI_VUOTI: Filtri = { q: '', campo: 'tutti', regione: '', provincia: '', soloRicci: false, soloVerificati: false, soloH24: false, soloFontePrimaria: false };
+export const FILTRI_VUOTI: Filtri = { regione: '', provincia: '', soloRicci: false, soloVerificati: false, soloH24: false, soloFontePrimaria: false };
 
-export function norm(s: string): string {
-  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
-}
-
-function haystack(c: Cras, campo: Campo): string {
-  if (campo === 'tutti') return norm([c.nome, c.comune, c.provincia, c.regione, c.indirizzo, c.note, c.territorio, c.animali_accettati, c.ente].join(' '));
-  return norm(c[campo]);
-}
+export const norm = fold;
 
 export function filtra(lista: Cras[], f: Filtri, oggi?: Date): Cras[] {
-  const tokens = norm(f.q).split(/\s+/).filter(Boolean);
   return lista.filter((c) => {
     if (f.regione && c.regione !== f.regione) return false;
     if (f.provincia && c.provincia !== f.provincia) return false;
@@ -36,9 +27,7 @@ export function filtra(lista: Cras[], f: Filtri, oggi?: Date): Cras[] {
     if (f.soloH24 && c.h24 !== 'si') return false;
     if (f.soloFontePrimaria && c.fonte_tipo !== 'primaria') return false;
     if (f.soloVerificati && statoVerifica(c.verificato_il, oggi) !== 'verificato') return false;
-    if (!tokens.length) return true;
-    const h = haystack(c, f.campo);
-    return tokens.every((t) => h.includes(t));
+    return true;
   });
 }
 

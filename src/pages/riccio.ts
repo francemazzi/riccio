@@ -1,10 +1,12 @@
 import '../styles/base.css';
 import '../styles/cras.css';
+import '../styles/drawer.css';
 import '../styles/triage.css';
 import { mountLayout } from '../lib/layout';
 import { icons } from '../lib/icons';
 import { locate, haversine } from '../lib/geo';
 import { card, esc } from '../lib/cras-view';
+import { collegaDrawer } from '../lib/drawer';
 import { norm } from '../lib/filter';
 import { LIVELLI, TriageSession, type Livello, type Segno, type Triage } from '../lib/triage';
 import triageData from '../../data/triage.json';
@@ -75,6 +77,7 @@ function renderResult(l: Livello, shared = false, focus = true): void {
   history.replaceState(null, '', `${location.pathname}?esito=${l}`);
 }
 
+let ultimaPos: { lat: number; lon: number } | undefined;
 async function findNearest(): Promise<void> {
   const st = $('nstatus'), list = $('nlist');
   if (!crasAll.length) {
@@ -86,11 +89,14 @@ async function findNearest(): Promise<void> {
     const pos = await locate();
     const top = [...crasAll].filter((c) => c.accetta_ricci !== 'no').sort((a, b) => haversine(pos, a) - haversine(pos, b)).slice(0, 3);
     st.textContent = top.length ? 'I tre centri più vicini:' : 'Nessun centro trovato: chiama il 1515.';
-    list.innerHTML = top.map((c) => card(c, pos)).join('');
+    list.innerHTML = top.map((c) => card(c, haversine(pos, c))).join('');
+    ultimaPos = pos;
   } catch (err) {
     st.innerHTML = `${esc((err as Error).message)}. <a href="/riccio/cras.html">Cerca per città o provincia</a>.`;
   }
 }
+
+collegaDrawer(document.body, (id) => crasAll.find((c) => c.id === id), () => (ultimaPos ? { punto: ultimaPos, etichetta: 'da te' } : undefined));
 
 root.addEventListener('click', (ev) => {
   const t = ev.target as HTMLElement;

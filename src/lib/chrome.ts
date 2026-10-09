@@ -20,5 +20,6 @@ export function headerHtml(base: string, page: string): string {
 export function footerHtml(): string {
   return `<div class="wrap"><p>Progetto open source (MIT). I dati sono raccolti da fonti pubbliche e potrebbero essere cambiati: <strong>chiama sempre prima di partire</strong>.
       In caso di dubbio: numero verde ambientale <a href="tel:1515">1515</a>.</p>
-      <p><a href="https://github.com/francemazzi/riccio">Codice e dati su GitHub</a> · <a href="https://github.com/francemazzi/riccio/blob/main/CONTRIBUTING.md">Contribuisci</a></p></div>`;
+      <p><a href="https://github.com/francemazzi/riccio">Codice e dati su GitHub</a> · <a href="https://github.com/francemazzi/riccio/blob/main/CONTRIBUTING.md">Contribuisci</a></p>
+      <p class="credits">Mappe e coordinate: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, <a href="https://www.geonames.org/">GeoNames</a> (CC BY 4.0).</p></div>`;
 }

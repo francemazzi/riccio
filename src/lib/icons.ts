@@ -24,6 +24,7 @@ export const icons = {
   info: (l = '') => svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.01"/>', l),
   search: (l = '') => svg('<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>', l),
   check: (l = '') => svg('<path d="M5 12l5 5 9-10"/>', l),
+  close: (l = '') => svg('<path d="M6 6l12 12M18 6L6 18"/>', l),
   flag: (l = '') => svg('<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>', l),
 };
 

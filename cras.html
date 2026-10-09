@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trova un CRAS · Riccio</title>
-  <meta name="description" content="Elenco dei centri di recupero fauna selvatica (CRAS): cerca per città, provincia o regione e chiama con un tap.">
+  <meta name="description" content="Elenco dei centri di recupero fauna selvatica (CRAS): scrivi il tuo comune e trovi i più vicini, chiami con un tap.">
   <meta name="theme-color" content="#4a3728">
   <link rel="manifest" href="/riccio/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/riccio/icon-192.png">
@@ -19,33 +19,38 @@
   <main id="contenuto" class="wrap">
     <div class="page-head">
       <h1>Trova un CRAS</h1>
-      <p>Centri di recupero per ricci e fauna selvatica. Cerca per città, provincia o nome.</p>
+      <p>Scrivi il tuo comune e vedi i centri più vicini.</p>
     </div>
     <p class="emergency"><span data-icon="warn"></span><span><strong>Chiama sempre prima di partire.</strong> I centri hanno orari e capienza variabili. In caso di dubbio: <a href="tel:1515">1515</a>.</span></p>
 
-    <form class="card filters" role="search" aria-label="Filtra i centri" onsubmit="return false">
-      <label class="field wide" for="f-q">Cerca (città, provincia, nome…)
-        <input id="f-q" type="search" inputmode="search" autocomplete="off" placeholder="es. Modena" enterkeyhint="search">
-      </label>
-      <label class="field" for="f-campo">Cerca in
-        <select id="f-campo">
-          <option value="tutti">Tutti i campi</option><option value="comune">Città</option><option value="nome">Nome</option>
-          <option value="provincia">Provincia</option><option value="regione">Regione</option>
-        </select>
-      </label>
-      <label class="field" for="f-regione">Regione<select id="f-regione"></select></label>
-      <label class="field" for="f-provincia">Provincia<select id="f-provincia"></select></label>
-      <div class="checks wide">
-        <label class="check"><input id="f-ricci" type="checkbox"> Escludi chi non accetta ricci</label>
-        <label class="check"><input id="f-verificati" type="checkbox"> Solo dati verificati</label>
-        <label class="check"><input id="f-h24" type="checkbox"> Emergenze H24</label>
-        <label class="check"><input id="f-ufficiali" type="checkbox"> Solo fonti ufficiali</label>
-        <button type="button" class="btn" id="geo">Vicino a me</button>
-        <button type="button" class="btn secondary" id="reset">Azzera filtri</button>
+    <form class="card search-card" role="search" aria-label="Cerca un centro" onsubmit="return false">
+      <label class="search-label" for="f-q">Dove sei? Scrivi il comune, il nome del centro o un numero di telefono</label>
+      <div class="search-row">
+        <div class="search-field">
+          <span class="search-icon" data-icon="search"></span>
+          <input id="f-q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="es. Guastalla, Modena, 24 ore, 339…">
+        </div>
+        <button type="button" class="btn" id="geo"><span data-icon="pin"></span> Vicino a me</button>
       </div>
+      <p class="hint">Funziona anche con errori di battitura e senza accenti.</p>
+      <details class="more-filters" id="more">
+        <summary>Altri filtri</summary>
+        <div class="more-grid">
+          <label class="field" for="f-regione">Regione<select id="f-regione"></select></label>
+          <label class="field" for="f-provincia">Provincia<select id="f-provincia"></select></label>
+          <div class="checks">
+            <label class="check"><input id="f-ricci" type="checkbox"> Escludi chi non accetta ricci</label>
+            <label class="check"><input id="f-h24" type="checkbox"> Emergenze H24</label>
+            <label class="check"><input id="f-ufficiali" type="checkbox"> Solo fonti ufficiali</label>
+            <label class="check"><input id="f-verificati" type="checkbox"> Solo dati verificati</label>
+          </div>
+          <button type="button" class="btn secondary" id="reset">Azzera tutto</button>
+        </div>
+      </details>
     </form>
 
     <div class="toolbar"><p class="count" id="count" aria-live="polite"></p><p class="status" id="status" role="status"></p></div>
+    <div id="place-note" aria-live="polite"></div>
     <h2 class="sr-only">Elenco dei centri</h2>
     <div id="empty"></div>
     <ul class="cards mobile-only" id="list-cards"></ul>

@@ -1,10 +1,10 @@
 import { icons } from './icons';
 import { statoVerifica, type Cras } from './cras';
-import { formatKm, haversine, mapsUrl, type Point } from './geo';
+import { formatKm } from './geo';
 
 export const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
-const fmtTel = (t: string) => t.replace(/^\+39(\d{2,4})(\d+)$/, '+39 $1 $2');
+export const fmtTel = (t: string) => t.replace(/^\+39(\d{2,4})(\d+)$/, '+39 $1 $2');
 
 function badgeRicci(c: Cras): string {
   if (c.accetta_ricci === 'si') return `<span class="badge ok">${icons.check()} Accetta ricci</span>`;
@@ -46,29 +46,29 @@ const dettagli = (c: Cras) =>
   `${c.ente ? `<p class="meta">Gestito da ${esc(c.ente)}</p>` : ''}`;
 const telefoni = (c: Cras) =>
   `<div class="tel">${c.telefoni.map((t) => `<a class="btn" href="tel:${esc(t)}">${icons.phone()} ${esc(fmtTel(t))}</a>`).join('')}</div>`;
-const distanza = (c: Cras, pos?: Point) => (pos ? `<span class="dist">${formatKm(haversine(pos, c))}</span>` : '');
+const distanza = (km?: number) => (km !== undefined ? `<span class="dist">${formatKm(km)}</span>` : '');
 const segnala = (c: Cras) => {
   const u = new URLSearchParams({ template: 'segnala-cras.yml', title: `[CRAS] Correzione: ${c.nome}`, cras_id: c.id });
   return `https://github.com/francemazzi/riccio/issues/new?${u}`;
 };
 const azioni = (c: Cras) =>
-  `<div class="actions"><a href="${mapsUrl(c)}" target="_blank" rel="noopener">${icons.pin()} Apri in mappe</a>` +
+  `<div class="actions"><button type="button" class="link-btn open-map" data-id="${esc(c.id)}">${icons.pin()} Vedi sulla mappa</button>` +
   (c.sito ? `<a href="${esc(c.sito)}" target="_blank" rel="noopener">Sito</a>` : '') +
   `<a href="${esc(c.fonte)}" target="_blank" rel="noopener">Fonte</a>` +
   `<a href="${segnala(c)}" target="_blank" rel="noopener">${icons.flag()} Segnala errore</a></div>`;
 
-export function card(c: Cras, pos?: Point): string {
+export function card(c: Cras, km?: number): string {
   return `<li class="card cras-card"><h3>${esc(c.nome)}</h3>
-    <p class="where">${icons.pin()} ${esc(c.comune)} (${esc(c.provincia)}) · ${esc(c.regione)} ${distanza(c, pos)}</p>
+    <p class="where">${icons.pin()} ${esc(c.comune)} (${esc(c.provincia)}) · ${esc(c.regione)} ${distanza(km)}</p>
     ${telefoni(c)}
     ${c.orari ? `<p class="meta">Orari: ${esc(c.orari)}</p>` : ''}
     ${c.indirizzo ? `<p class="meta">${esc(c.indirizzo)}</p>` : ''}
     ${badges(c)}${dettagli(c)}${c.note ? `<p class="meta">${esc(c.note)}</p>` : ''}${azioni(c)}</li>`;
 }
 
-export function row(c: Cras, pos?: Point): string {
+export function row(c: Cras, km?: number): string {
   return `<tr><th scope="row">${esc(c.nome)}${c.indirizzo ? `<div class="meta">${esc(c.indirizzo)}</div>` : ''}</th>
-    <td>${esc(c.comune)} ${distanza(c, pos)}</td><td>${esc(c.provincia)}</td><td>${esc(c.regione)}</td>
+    <td>${esc(c.comune)} ${distanza(km)}</td><td>${esc(c.provincia)}</td><td>${esc(c.regione)}</td>
     <td>${telefoni(c)}${c.orari ? `<div class="meta">${esc(c.orari)}</div>` : ''}</td>
     <td>${badges(c)}${dettagli(c)}</td><td>${azioni(c)}</td></tr>`;
 }

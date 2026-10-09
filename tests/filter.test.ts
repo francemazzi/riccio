@@ -7,18 +7,8 @@ import { haversine } from '../src/lib/geo';
 const { records } = parseCras(readFileSync('tests/fixtures/cras-esempio.csv', 'utf8'));
 const oggi = new Date('2026-10-08T00:00:00Z');
 
-describe('filtra', () => {
+describe('filtra (filtri avanzati)', () => {
   it('senza filtri restituisce tutto', () => expect(filtra(records, FILTRI_VUOTI)).toHaveLength(records.length));
-  it('cerca per città senza accenti e maiuscole', () => {
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'MODENA' }).map((c) => c.id)).toEqual(['esempio-modena']);
-  });
-  it('cerca per campo specifico', () => {
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'mo', campo: 'provincia' }).map((c) => c.id)).toEqual(['esempio-modena']);
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'lombardia', campo: 'nome' })).toHaveLength(0);
-  });
-  it('più parole = AND', () => {
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'centro lombardia' })).toHaveLength(2);
-  });
   it('regione e provincia', () => {
     expect(filtra(records, { ...FILTRI_VUOTI, regione: 'Piemonte' })).toHaveLength(2);
     expect(filtra(records, { ...FILTRI_VUOTI, regione: 'Piemonte', provincia: 'CN' })).toHaveLength(1);
@@ -31,11 +21,6 @@ describe('filtra', () => {
     expect(filtra(records, { ...FILTRI_VUOTI, soloH24: true }).map((c) => c.id)).toEqual(['esempio-bologna']);
     expect(filtra(records, { ...FILTRI_VUOTI, soloFontePrimaria: true }).map((c) => c.id)).toEqual(['esempio-modena']);
   });
-  it('la ricerca copre territorio, animali accettati ed ente', () => {
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'ricci mammiferi' }).map((c) => c.id)).toEqual(['esempio-modena']);
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'provincia di modena' }).map((c) => c.id)).toEqual(['esempio-modena']);
-    expect(filtra(records, { ...FILTRI_VUOTI, q: 'ente esempio' }).map((c) => c.id)).toEqual(['esempio-bologna']);
-  });
   it('solo verificati considera la scadenza a 12 mesi', () => {
     const ids = filtra(records, { ...FILTRI_VUOTI, soloVerificati: true }, oggi).map((c) => c.id).sort();
     expect(ids).toEqual(['esempio-bergamo', 'esempio-cuneo', 'esempio-modena', 'esempio-palermo']);
@@ -43,13 +28,14 @@ describe('filtra', () => {
 });
 
 describe('ordina e geo', () => {
-  it('ordina per nome', () => {
+  it('ordina per comune', () => {
     const n = ordina(records, 'comune').map((c) => c.comune);
     expect(n).toEqual([...n].sort((a, b) => a.localeCompare(b, 'it')));
   });
   it('haversine Milano-Roma ≈ 477 km', () => {
-    expect(haversine({ lat: 45.4642, lon: 9.19 }, { lat: 41.9028, lon: 12.4964 })).toBeGreaterThan(470);
-    expect(haversine({ lat: 45.4642, lon: 9.19 }, { lat: 41.9028, lon: 12.4964 })).toBeLessThan(485);
+    const d = haversine({ lat: 45.4642, lon: 9.19 }, { lat: 41.9028, lon: 12.4964 });
+    expect(d).toBeGreaterThan(470);
+    expect(d).toBeLessThan(485);
   });
   it('per distanza da Modena il primo è Modena, poi Bologna', () => {
     const r = ordina(records, 'distanza', false, { lat: 44.65, lon: 10.92 });
