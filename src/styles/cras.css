@@ -13,7 +13,8 @@
 .toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; justify-content: space-between; }
 .count { font-weight: 700; }
 .status { color: var(--muted); font-size: .9rem; min-height: 1.3em; }
-.cards { display: grid; gap: .75rem; list-style: none; padding: 0; margin: 1rem 0; }
+.cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; list-style: none; padding: 0; margin: 1rem 0; }
+.cras-card, .result, table.cras td, table.cras th { overflow-wrap: anywhere; }
 .cras-card h3 { margin: 0 0 .15rem; font-size: 1.1rem; }
 .cras-card .where { color: var(--muted); margin: 0 0 .5rem; display: flex; gap: .35rem; align-items: center; flex-wrap: wrap; }
 .tel { display: flex; flex-wrap: wrap; gap: .5rem; margin: .5rem 0; }
