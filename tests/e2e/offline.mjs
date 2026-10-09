@@ -17,7 +17,9 @@ await t('landing offline', async () => { await page.goto(base); assert.match(awa
 await t('lista CRAS offline con filtro', async () => {
   await page.goto(base + 'cras.html?q=modena'); await page.waitForSelector('#tbody tr', { state: 'attached' });
   assert.match(await page.title(), /Trova un CRAS/);
-  assert.match(await page.textContent('#count'), /1 centro su 10/);
+  await page.waitForSelector('.place-note'); // il file dei comuni arriva dalla cache anche offline
+  assert.match(await page.textContent('.place-note'), /Modena \(MO\)/);
+  assert.match(await page.textContent('#count'), /10 centri/);
 });
 await t('triage offline', async () => {
   await page.goto(base + 'riccio.html'); await page.waitForSelector('.opt');
